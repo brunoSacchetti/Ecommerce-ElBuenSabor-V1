@@ -1,11 +1,12 @@
 import React from "react";
-import { Header } from "../../UI/Header/Header";
+import { Header } from "../../ui/Header/Header";
+import { Categories } from "../Categories/Categories";
 
 export const Home = () => {
   return (
     <div>
       <Header />
-      <Categories/>
+      <Categories />
     </div>
   );
 };
