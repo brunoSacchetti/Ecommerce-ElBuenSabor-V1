@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import { Home } from "../components/Pages/Home/Home";
-import { Navbar } from "../components/UI/Navbar/Navbar";
 import { useState } from "react";
-import { LoginPopup } from "../components/UI/LoginPopup/LoginPopup";
+import { LoginPopup } from "../components/ui/LoginPopup/LoginPopup";
+import { Navbar } from "../components/ui/Navbar/Navbar";
+import { Home } from "../components/pages/Home/Home";
 
 export const AppRouter = () => {
   const [showLogin, setShowLogin] = useState(false);
