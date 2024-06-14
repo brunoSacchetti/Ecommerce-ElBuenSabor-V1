@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CategoriaService } from '../../../services/CategoriaService';
 import { ICategoria } from '../../../types/Categoria';
 const API_URL = import.meta.env.VITE_API_URL;
-import "./Categories.css"
+import "./Categories.css";
 
 export const Categories = () => {
-
-  const categoriaService = new CategoriaService(API_URL + "/categoria")
-  const [categorias,setCategorias] = useState<ICategoria[]>();
+  const categoriaService = new CategoriaService(API_URL + "/categoria");
+  const [categorias, setCategorias] = useState<ICategoria[]>();
+  const navigate = useNavigate();
 
   const getCategorias = async () => {
     try {
-      const categoriaData = await categoriaService.getAll();
-      setCategorias(categoriaData);
+      const data = await categoriaService.getAll();
+      const filteredCategorias = data.filter((cat: ICategoria) => !cat.esInsumo);
+      setCategorias(filteredCategorias);
     } catch (error) {
-      console.error("Error al obtener categorias:", error);
+      console.error("Error al obtener las categorías:", error);
     }
   };
 
@@ -22,9 +24,10 @@ export const Categories = () => {
     getCategorias();
   }, []);
 
+  const handleCategoriaClick = (categoria: ICategoria) => {
+    navigate("/articulos", { state: { categoria } });
+  };
 
-  console.log(categorias);
-  
   return (
     <div className="explore-menu" id='explore-menu'>
       <h1>Explora Nuestro Menú</h1>
@@ -33,7 +36,7 @@ export const Categories = () => {
       </p>
       <div className="explore-menu-list">
         {categorias?.map((item, index) => (
-          <div key={index} className="explore-menu-list-item">
+          <div key={index} className="explore-menu-list-item" onClick={() => handleCategoriaClick(item)}>
             <img src="./POLLOLOGO.png" alt='' />
             <p>{item.denominacion}</p>
           </div>
@@ -42,4 +45,4 @@ export const Categories = () => {
       <hr />
     </div>
   );
-}
+};

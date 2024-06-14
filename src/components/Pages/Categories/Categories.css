@@ -13,7 +13,7 @@
 }
 .explore-menu-list{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   gap: 30px;
   text-align: center;

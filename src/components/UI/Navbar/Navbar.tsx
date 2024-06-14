@@ -29,6 +29,7 @@ export const Navbar: React.FC<NavbarProps> = ({ setShowLogin }) => {
         <li onClick={() => setMenu("Categorias")} className={menu === "Categorias" ? "active" : ""}>Categorias</li>
         <li onClick={() => setMenu("Mobile")} className={menu === "Mobile" ? "active" : ""}>App Mobile</li>
         <li onClick={() => setMenu("Contactanos")} className={menu === "Contactanos" ? "active" : ""}>Contactanos</li>
+        <li><Link to={"/articulos"}>Articulos</Link></li>
       </ul>
       <div className="navbar-right">
         <img src={assets.search_icon} alt="" />
