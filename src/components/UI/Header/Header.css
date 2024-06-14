@@ -1,40 +1,50 @@
-.header{
-  height: 34vw;
-  margin: 30px auto;
-  background-image: url("/header_img.png") ;
-  background-size: contain;
+.header {
+  height: 34vw; /* Altura relativa al ancho de la pantalla */
+  margin: 30px auto; /* Margen automático para centrar horizontalmente */
+  background-image: url("/header_img.png"); /* Imagen de fondo */
+  background-size: cover; /* Ajuste para cubrir completamente el contenedor */
+  background-position: center; /* Posición centrada de la imagen de fondo */
   position: relative;
   background-repeat: no-repeat;
+  width: 80%;
+  border-radius: 25px;
+}
 
+.headers-content {
+  position: absolute;
+  bottom: 10%; /* Distancia desde abajo */
+  left: 6vw; /* Distancia desde la izquierda */
+  width: 50%; /* Ancho máximo del contenido */
+  padding: 20px; /* Espaciado interno */
+  color: white; /* Color del texto */
+  animation: fadeIn 3s; /* Animación de entrada */
 }
-.headers-content{
-  position:absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  gap: 1.5vw;
-  max-width: 50%;
-  bottom: 10%;
-  left: 6vw;
-  animation: fadeIn 3s ;
 
-}
-.headers-content h2{
+.headers-content h2 {
   font-weight: 500;
-  color: white;
-  font-size: max(4.5vw,22px);
+  font-size: max(4.5vw, 22px); /* Tamaño de fuente adaptable */
+  margin-bottom: 10px; /* Margen inferior */
 }
-.headers-content p{
-  color:white;
-  font-weight: 1vw;
+
+.headers-content p {
+  font-size: max(1vw, 13px); /* Tamaño de fuente adaptable */
+  font-weight: 300; /* Peso de la fuente */
+  line-height: 1.5; /* Altura de línea */
+  margin-bottom: 20px; /* Margen inferior */
 }
-.headers-content button{
-  border: none;
-  color:#747474;
-  font-weight: 500;
-  padding: 1vw 2.3vw;
-  background-color: white;
-  font-size: max(1vw,13px);
-  border-radius: 50px;
-  cursor: pointer;
+
+.headers-content button {
+  background-color: #ffffff; /* Color de fondo del botón */
+  color: #747474; /* Color del texto del botón */
+  font-size: max(1vw, 13px); /* Tamaño de fuente adaptable */
+  font-weight: 500; /* Peso de la fuente */
+  padding: 12px 30px; /* Relleno del botón */
+  border: none; /* Sin borde */
+  border-radius: 50px; /* Borde redondeado */
+  cursor: pointer; /* Cursor apuntador */
+  transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.headers-content button:hover {
+  background-color: #e0e0e0; /* Color de fondo al pasar el ratón */
 }

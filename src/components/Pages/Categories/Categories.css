@@ -3,13 +3,16 @@
   flex-direction: column;
   gap: 20px;
 }
-.explore-meun h1{
+.explore-menu h1{
   color: #262626;
   font-weight: 500;
+  text-align: center;
 }
 .explore-menu-text{
   max-width: 60%;
   color: #808080;
+  text-align: center;
+
 }
 .explore-menu-list{
   display: flex;
@@ -23,6 +26,24 @@
 .explore-menu-list::-webkit-scrollbar{
   display: none;
 }
+
+.centrados {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  flex-direction: column
+}
+
+.centrados h1 {
+  font-size: 1.5rem;
+}
+
+.centrados .explore-menu-text {
+  font-size: 1.2rem; 
+  max-width: 80%; 
+  margin: 0 auto; 
+}
+
 .explore-menu-list-item img{
   width: 7.5vw;
   min-width: 80px;
@@ -35,6 +56,7 @@
   color: #747474;
   font-size: max(1.4vw,16px);
   cursor: pointer;
+ 
 }
 .explore-menu hr{
   margin: 10px 0px;

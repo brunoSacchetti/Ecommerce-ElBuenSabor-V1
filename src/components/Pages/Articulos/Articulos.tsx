@@ -5,6 +5,7 @@ import { ICategoria } from '../../../types/Categoria';
 import IArticulo from '../../../types/IArticulo';
 import { useLocation } from 'react-router-dom';
 const API_URL = import.meta.env.VITE_API_URL;
+import "./Articulos.css"
 export const Articulos = () => {
 
   const categoriaService = new CategoriaService(API_URL + "/categoria");
@@ -53,22 +54,22 @@ export const Articulos = () => {
   useEffect(() => {
     fetchAndFilterData();
   }, [categoria]);
-
+  
   return (
     <div className="articulos-container">
       <h1>Artículos en {categoria.denominacion}</h1>
       <div className="articulos-list">
         {filteredItems.map((item, index) => (
-          <Card key={index} style={{ width: '18rem', marginBottom: '20px' }}>
+          <Card key={index} className="card">
             <Card.Img variant="top" src="./POLLOLOGO.png" />
-            <Card.Body>
-              <Card.Title>{item.denominacion}</Card.Title>
-              <Card.Text>
+            <Card.Body className="card-body">
+              <Card.Title className="card-title" style={{color:"rgb(241, 125, 96)"}}>{item.denominacion}</Card.Title>
+              <Card.Text className="card-text">
                 {item.descripcion}
                 <br />
-                Precio: {item.precioVenta}
+                <h5>Precio: ${item.precioVenta}</h5>
               </Card.Text>
-              <Button variant="primary">Comprar</Button>
+              <Button variant="primary" className="card-btn">Comprar</Button>
             </Card.Body>
           </Card>
         ))}

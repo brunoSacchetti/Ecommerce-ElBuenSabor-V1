@@ -1,0 +1,64 @@
+.articulos-container {
+  padding: 20px;
+}
+
+.articulos-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.articulos-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 18rem;
+  margin-bottom: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: box-shadow 0.3s ease; /* Transición de la sombra */
+}
+
+.card:hover {
+  box-shadow: 0 0 20px rgb(241, 125, 96); /* Sombra más pronunciada al pasar el ratón */
+}
+
+.card img {
+  height: 200px; /* Altura fija para la imagen */
+  object-fit: cover; /* Ajusta la imagen dentro del contenedor manteniendo la proporción */
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 1.25rem; 
+  text-align: center;
+  margin-bottom: 10px;
+  color:rgb(241, 125, 96);
+}
+
+.card-text {
+  font-size: 0.9rem; /* Tamaño del texto */
+  flex-grow: 1; /* Hace que el texto ocupe el espacio disponible */
+  line-height: 1.4; /* Altura de línea */
+  
+}
+
+.card-text small {
+  font-size: 0.75rem; /* Tamaño del texto pequeño */
+}
+
+.card-btn {
+  margin-top: auto; /* Mueve el botón hacia abajo */
+  width: 100%; /* Ancho completo */
+}
+
+@media (max-width: 768px) {
+  .articulos-list {
+    justify-content: center; /* Centra los elementos en pantallas pequeñas */
+  }
+}
