@@ -22,12 +22,12 @@ export const Pedidos: React.FC = () => {
   const [pedidos, setPedidos] = useState<IPedido[]>([]);
 
   const { cliente } = useAppSelector((state) => state.user);
-  console.log(cliente);
+
   
 
   const getPedidosByClient = async () => {
     try {
-      const response = await fetch(`${API_URL}/pedidos/${cliente.id}`);
+      const response = await fetch(`${API_URL}/clientes/pedidos/${cliente.id}`);
       if (!response.ok) {
         throw new Error('Error fetching pedidos');
       }
@@ -50,7 +50,6 @@ export const Pedidos: React.FC = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
             <TableCell>Cliente</TableCell>
             <TableCell>Total</TableCell>
             <TableCell>Estado</TableCell>
@@ -62,7 +61,6 @@ export const Pedidos: React.FC = () => {
         <TableBody>
           {pedidos.map(pedido => (
             <TableRow key={pedido.id}>
-              <TableCell>{pedido.id}</TableCell>
               <TableCell>{pedido.cliente.nombre} {pedido.cliente.apellido}</TableCell>
               <TableCell>{pedido.total}</TableCell>
               <TableCell>{pedido.estado}</TableCell>

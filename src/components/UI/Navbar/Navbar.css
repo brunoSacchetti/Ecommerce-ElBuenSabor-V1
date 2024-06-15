@@ -17,7 +17,10 @@
     color: rgb(241, 125, 96);
     font-size: 18px;
 }
-
+.link{
+    color: #e08548;
+    text-decoration: none;
+}
 .navbar-right{
     display: flex;
     align-items: center;

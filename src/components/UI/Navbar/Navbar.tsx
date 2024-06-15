@@ -25,10 +25,11 @@ export const Navbar: React.FC<NavbarProps> = ({ setShowLogin }) => {
     <div className='navbar' style={{justifyContent:"space-around"}}>
       <Link to="/" ><img src="./POLLOLOGO.png" alt='logo.png' className="logo"/></Link>
       <ul className="navbar-menu">
-        <li onClick={() => setMenu("Home")} className={menu === "Home" ? "active" : ""}>Home</li>
+        <li onClick={() => setMenu("Home")} className={menu === "Home" ? "active" : ""}><Link className='link' to={"/"}> Pedidos</Link></li>
         <li onClick={() => setMenu("Categorias")} className={menu === "Categorias" ? "active" : ""}>Categorias</li>
         <li onClick={() => setMenu("Mobile")} className={menu === "Mobile" ? "active" : ""}>App Mobile</li>
         <li onClick={() => setMenu("Contactanos")} className={menu === "Contactanos" ? "active" : ""}>Contactanos</li>
+        <li onClick={() => setMenu("Pedidos")} className={menu === "Pedidos" ? "active" : ""}><Link className='link' to={"/pedidos"}> Pedidos</Link></li>
       </ul>
       <div className="navbar-right">
         <img src={assets.search_icon} alt="" />

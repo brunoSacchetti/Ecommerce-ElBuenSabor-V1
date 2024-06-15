@@ -31,10 +31,10 @@ export const Categories = () => {
   return (
     <div className="explore-menu" id='explore-menu'>
       <div className="centrados">
-      <h1>Explora Nuestro Menú</h1>
-      <p className='explore-menu-text'>
-        Descubre nuestras mejores categorías y disfruta de una experiencia culinaria única. Ofrecemos una variedad de platos deliciosos preparados con ingredientes frescos y de alta calidad. Desde opciones tradicionales hasta innovadoras creaciones, tenemos algo para todos los gustos. ¡Déjate sorprender y disfruta de nuestros exquisitos productos!
-      </p>
+        <h1>Explora Nuestro Menú</h1>
+        <p className='explore-menu-text'>
+          Descubre nuestras mejores categorías y disfruta de una experiencia culinaria única. Ofrecemos una variedad de platos deliciosos preparados con ingredientes frescos y de alta calidad. Desde opciones tradicionales hasta innovadoras creaciones, tenemos algo para todos los gustos. ¡Déjate sorprender y disfruta de nuestros exquisitos productos!
+        </p>
       </div>
       <div className="explore-menu-list">
         {categorias?.map((item, index) => (
@@ -48,3 +48,4 @@ export const Categories = () => {
     </div>
   );
 };
+
