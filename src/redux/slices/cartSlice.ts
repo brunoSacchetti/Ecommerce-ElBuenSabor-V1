@@ -1,43 +1,48 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from "../store/store"
-import { act } from 'react'
-import { Instrument } from '../../types/Instrument'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import IArticulo from '../../types/IArticulo';
 
-// Define the initial state using that type
-const initialState: {
-    totalCount: number,
-    productsList: Instrument[]
-  } = {
-    totalCount: 0,
-    productsList: [],
-  }
+interface CartState {
+  totalCount: number;
+  productsList: IArticulo[];
+  productQuantities: { [id: number]: number };
+}
+
+const initialState: CartState = {
+  totalCount: 0,
+  productsList: [],
+  productQuantities: {},
+};
+
 export const cartSlice = createSlice({
   name: 'cart',
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState: initialState,
   reducers: {
-    addProductToCart: (state, action) => { //en el action va a venir un product
-        state.productsList = [...state.productsList, action.payload] // lo que ya tengo en ese estado mas el payload
+    addProductToCart: (state, action: PayloadAction<IArticulo>) => {
+      const { id } = action.payload;
+      if (!state.productsList.find((product) => product.id === id)) {
+        state.productsList.push(action.payload);
         state.totalCount += 1;
+      }
+      state.productQuantities[id] = Math.max(state.productQuantities[id] || 0, 1); // Al añadir, asegura que la cantidad mínima sea 1
     },
-    removeProductFromCart: (state, action) => { //va a venir el id
-        const productId = action.payload;
-        state.totalCount -= 1;
-        state.productsList = state.productsList.filter(product => product.id !== productId); // devolvemos todos los productos menos el que quitamos;
+    removeProductFromCart: (state, action: PayloadAction<number>) => {
+      const productId = action.payload;
+      state.totalCount -= 1;
+      state.productsList = state.productsList.filter((product) => product.id !== productId);
+      state.productQuantities[productId] = 0; // Al quitar, la cantidad se establece en 0
     },
     updateProductQuantity: (state, action: PayloadAction<{ id: number; quantity: number }>) => {
       const { id, quantity } = action.payload;
-      state.productsList = state.productsList.map(product =>
-        product.id === id ? { ...product, quantity } : product
-      );
+      state.productQuantities[id] = Math.max(quantity, 1); // Asegura que la cantidad no sea menor que 1
     },
     resetCart: (state) => {
       state.totalCount = 0;
       state.productsList = [];
-    }
-  }
-})
+      state.productQuantities = {};
+    },
+  },
+});
 
-export const { addProductToCart, removeProductFromCart, updateProductQuantity, resetCart } = cartSlice.actions
+export const { addProductToCart, removeProductFromCart, updateProductQuantity, resetCart } = cartSlice.actions;
 
-export default cartSlice.reducer
+export default cartSlice.reducer;
