@@ -146,16 +146,6 @@ export const Articulos = () => {
                 </span>
                 <button className="custom-btn" onClick={() => handleIncrementQuantity(item.id)}>+</button>
               </div>
-              <div className="radio-group">
-                <input
-                  type="radio"
-                  id={`radio-${item.id}`}
-                  name={`radio-${item.id}`}
-                  value="option1"
-                  onChange={() => handleRadioChange(item.id)}
-                />
-                <label htmlFor={`radio-${item.id}`}>Seleccionar</label>
-              </div>
               <button className="custom-btn" onClick={() => handleAddOrRemoveProduct(item)}>
                 {productsList.find((pdt) => pdt.id === item.id) ? 'Quitar del carrito' : 'Añadir al carrito'}
               </button>

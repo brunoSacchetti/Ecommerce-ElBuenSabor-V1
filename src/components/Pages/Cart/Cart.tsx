@@ -1,15 +1,23 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { removeProductFromCart, updateProductQuantity } from "../../../redux/slices/cartSlice";
+import { useDispatch } from "react-redux";
+import { removeProductFromCart, resetCart, updateProductQuantity } from "../../../redux/slices/cartSlice";
 import "./Cart.css";
 import { useAppSelector } from "../../../hooks/redux";
 import IArticulo from "../../../types/IArticulo";
+import { PedidoService } from "../../../services/PedidoService";
+import { PedidoPost } from "../../../types/PedidoPost/PedidoPost";
+import { DetallePedidoPost } from "../../../types/PedidoPost/DetallePedidoPost";
 
-const Cart = () => {
+const API_URL = import.meta.env.VITE_API_URL;
+
+export const Cart = () => {
   const dispatch = useDispatch();
   const { productsList, productQuantities } = useAppSelector((state) => state.cart);
   const [paymentMethod, setPaymentMethod] = useState(""); // Estado para método de pago
   const [shippingType, setShippingType] = useState(""); // Estado para tipo de envío
+  const pedidoService = new PedidoService(`${API_URL}/pedido`);
+
+  const cliente = useAppSelector((state) => state.user.cliente);
 
   const removeFromCart = (id: any) => {
     dispatch(removeProductFromCart(id));
@@ -20,7 +28,7 @@ const Cart = () => {
   };
 
   const decrementQuantity = (id: any) => {
-    dispatch(updateProductQuantity({ id, quantity: productQuantities[id] - 1 }));
+    dispatch(updateProductQuantity({ id, quantity: Math.max(productQuantities[id] - 1, 1) })); // Evita cantidad 0
   };
 
   const calculateTotal = () => {
@@ -32,10 +40,62 @@ const Cart = () => {
     return subtotal;
   };
 
-  const handleProceedToPay = () => {
-    // Aquí puedes hacer lo que sea necesario al proceder al pago, como enviar los datos al backend, etc.
-    console.log("Método de pago seleccionado:", paymentMethod);
-    console.log("Tipo de envío seleccionado:", shippingType);
+  const totalConDescuento = () => {
+    const subtotal = calculateTotal();
+    if (shippingType === "TAKE_AWAY") {
+      return subtotal * 0.9;
+    }
+    return subtotal;
+  };
+
+  const handleChangeShippingType = (e : any) => {
+    setShippingType(e.target.value);
+  };
+
+  const handleSaveCart = async () => {
+    try {
+      let totalPedido = 0;
+
+      const pedido: PedidoPost = {
+        id: 0,
+        eliminado: false,
+        tipoEnvio: shippingType,
+        formaPago: paymentMethod,
+        clienteID: cliente?.id,
+        domicilioID: cliente?.domicilios[0]?.id,
+        detallePedidos: [],
+      };
+
+      const detalles: DetallePedidoPost[] = [];
+
+      productsList.forEach((product) => {
+        const cantidad = productQuantities[product.id] || 1;
+        const subTotal = product.precioVenta * cantidad;
+        totalPedido += subTotal;
+
+        const detalle: DetallePedidoPost = {
+          cantidad,
+          subTotal,
+          idArticulo: product.id,
+        };
+
+        detalles.push(detalle);
+      });
+
+      pedido.detallePedidos = detalles;
+
+      console.log(pedido);
+
+      const pedidoResponse = await pedidoService.post(`${API_URL}/pedido`, pedido);
+
+      console.log(pedidoResponse);
+
+      dispatch(resetCart());
+      alert('El pedido se guardó correctamente');
+    } catch (error) {
+      console.error('Error al guardar el pedido:', error);
+      alert('No hay stock de algun producto seleccionado.');
+    }
   };
 
   return (
@@ -88,14 +148,14 @@ const Cart = () => {
               <p>${calculateTotal()}</p>
             </div>
             <hr />
-            <div className="cart-total-details">
+            {/* <div className="cart-total-details">
               <p>Delivery Fee</p>
               <p>$2</p>
-            </div>
+            </div> */}
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
-              <b>${calculateTotal() + 2}</b>
+              <b>${totalConDescuento()}</b>
             </div>
           </div>
           <div className="payment-options">
@@ -114,7 +174,7 @@ const Cart = () => {
             <select
               id="tipoEnvio"
               value={shippingType}
-              onChange={(e) => setShippingType(e.target.value)}
+              onChange={handleChangeShippingType}
             >
               <option value="">Seleccione Tipo de Envío</option>
               <option value="DELIVERY">Delivery</option>
@@ -122,11 +182,10 @@ const Cart = () => {
               {/* Agrega más opciones según sea necesario */}
             </select>
           </div>
-          <button onClick={handleProceedToPay}>Proceder a pagar</button>
+          <button onClick={handleSaveCart}>Proceder a pagar</button>
         </div>
       </div>
     </div>
   );
 };
 
-export default Cart;
