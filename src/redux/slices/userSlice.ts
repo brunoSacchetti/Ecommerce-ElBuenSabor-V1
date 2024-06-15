@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Cliente } from '../../types/Cliente';
+import { ICliente } from '../../types/Cliente';
 
 interface UserState {
   isLoggedIn: boolean;
-  cliente: Cliente | null;
+  cliente: ICliente | null;
 }
 
 const initialState: UserState = {
@@ -15,7 +15,7 @@ const userReducer = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<Cliente>) => {
+    login: (state, action: PayloadAction<ICliente>) => {
       state.isLoggedIn = true;
       state.cliente = action.payload;
       localStorage.setItem('user', JSON.stringify(action.payload));

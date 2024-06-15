@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { PedidoService } from '../../../services/PedidoService';
+
 import IPedido from '../../../types/Pedido';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+
+
 import {
   Table,
   TableHead,
@@ -27,7 +27,7 @@ export const Pedidos: React.FC = () => {
 
   const getPedidosByClient = async () => {
     try {
-      const response = await fetch(`${API_URL}/clientes/pedidos/${cliente.id}`);
+      const response = await fetch(`${API_URL}/clientes/pedidos/${cliente?.id}`);
       if (!response.ok) {
         throw new Error('Error fetching pedidos');
       }
