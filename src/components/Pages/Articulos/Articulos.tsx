@@ -113,9 +113,6 @@ export const Articulos = () => {
     dispatch(updateProductQuantity({ id, quantity: Math.max((productQuantities[id] || 0) - 1, 0) }));
   };
 
-  console.log(productsList);
-  console.log(productQuantities);
-
   const handleRadioChange = (id: number) => {
     // Aquí puedes implementar lógica específica para el cambio de radio buttons si es necesario
     console.log(`Seleccionaste el artículo con ID: ${id}`);
