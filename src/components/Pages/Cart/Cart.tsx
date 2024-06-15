@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeProductFromCart, resetCart, updateProductQuantity } from "../../../redux/slices/cartSlice";
 import "./Cart.css";
@@ -7,10 +7,16 @@ import IArticulo from "../../../types/IArticulo";
 import { PedidoService } from "../../../services/PedidoService";
 import { PedidoPost } from "../../../types/PedidoPost/PedidoPost";
 import { DetallePedidoPost } from "../../../types/PedidoPost/DetallePedidoPost";
+import { Button } from "react-bootstrap";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const Cart = () => {
+type CartProps = {
+  setShowDomicilio: (value: any) => void;
+};
+
+
+const Cart: React.FC<CartProps>  = ({setShowDomicilio}) => {
   const dispatch = useDispatch();
   const { productsList, productQuantities } = useAppSelector((state) => state.cart);
   const [paymentMethod, setPaymentMethod] = useState(""); // Estado para método de pago
@@ -40,6 +46,25 @@ const Cart = () => {
     return subtotal;
   };
 
+  const [domicilios, setDomicilios] = useState<any[]>([]);
+  const getDomicilios = async () => {
+    try {
+      const response = await fetch(`${API_URL}/clientes/listDomiciliosCliente/${cliente?.id}`);
+      if (!response.ok) {
+        throw new Error("Error al obtener domicilios");
+      }
+      const data = await response.json();
+      setDomicilios(data);
+    } catch (error) {
+      console.error("Error al obtener domicilios:", error);
+    }
+  };
+
+  // Cargar los domicilios al montar el componente
+  useEffect(() => {
+    getDomicilios();
+  }, []);
+  
   const handleSaveCart = async () => {
     try {
       let totalPedido = 0;
@@ -75,8 +100,6 @@ const Cart = () => {
       console.log(pedido);
 
       const pedidoResponse = await pedidoService.post(`${API_URL}/pedido`, pedido);
-
-      console.log(pedidoResponse);
 
       dispatch(resetCart());
       alert('El pedido se guardó correctamente');
@@ -138,10 +161,6 @@ const Cart = () => {
               <p>${calculateTotal()}</p>
             </div>
             <hr />
-            {/* <div className="cart-total-details">
-              <p>Delivery Fee</p>
-              <p>$2</p>
-            </div> */}
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
@@ -158,7 +177,7 @@ const Cart = () => {
               <option value="">Seleccione Método de Pago</option>
               <option value="EFECTIVO">Efectivo</option>
               <option value="MERCADO_PAGO">Mercado Pago</option>
-              {/* Agrega más opciones según sea necesario */}
+
             </select>
             <label htmlFor="tipoEnvio">Tipo de Envío:</label>
             <select
@@ -167,12 +186,28 @@ const Cart = () => {
               onChange={(e) => setShippingType(e.target.value)}
             >
               <option value="">Seleccione Tipo de Envío</option>
-              <option value="DELIVERY">Delivery</option>
-              <option value="TAKE_AWAY">Take Away</option>
-              {/* Agrega más opciones según sea necesario */}
+              <option value="DELIVERY">Envio a Domicilio</option>
+              <option value="TAKE_AWAY">Retiro en Local</option>
             </select>
+            {shippingType === "DELIVERY" && (
+              <div>
+                <label htmlFor="domicilio">Seleccione Domicilio:</label>
+                <select
+                  id="domicilio"
+                  onChange={(e) => console.log(e.target.value)} // Manejar la selección del domicilio aquí
+                >
+                  <option value="">Seleccione Domicilio</option>
+                  {domicilios.map((domicilio) => (
+                    <option key={domicilio.id} value={domicilio.id}>
+                      {domicilio.calle} {domicilio.numero}, {domicilio.localidad.nombre}, {domicilio.localidad.provincia.nombre}
+                    </option>
+                  ))}
+                </select>
+                <Button onClick={() => setShowDomicilio(true)}>Añadir un Domicilio</Button>
+              </div>
+            )}
           </div>
-          <button onClick={handleSaveCart}>Proceder a pagar</button>
+          <button className="pay" onClick={handleSaveCart}>Proceder a pagar</button>
         </div>
       </div>
     </div>
