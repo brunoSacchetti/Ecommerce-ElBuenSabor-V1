@@ -18,10 +18,12 @@ const userReducer = createSlice({
     login: (state, action: PayloadAction<Cliente>) => {
       state.isLoggedIn = true;
       state.cliente = action.payload;
+      localStorage.setItem('user', JSON.stringify(action.payload));
     },
     logout: (state) => {
       state.isLoggedIn = false;
       state.cliente = null;
+      localStorage.removeItem('user');
     },
   },
 });
