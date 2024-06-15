@@ -28,6 +28,6 @@ const userReducer = createSlice({
   },
 });
 
-export const { login, logout } = userReducer.actions;
+export const { login, logout  } = userReducer.actions;
 
 export default userReducer.reducer;

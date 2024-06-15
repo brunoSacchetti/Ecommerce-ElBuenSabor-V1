@@ -7,6 +7,8 @@ import IArticulo from "../../../types/IArticulo";
 import { PedidoService } from "../../../services/PedidoService";
 import { PedidoPost } from "../../../types/PedidoPost/PedidoPost";
 import { DetallePedidoPost } from "../../../types/PedidoPost/DetallePedidoPost";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Button } from "react-bootstrap";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -24,6 +26,7 @@ const Cart: React.FC<CartProps>  = ({setShowDomicilio}) => {
   const pedidoService = new PedidoService(`${API_URL}/pedido`);
 
   const cliente = useAppSelector((state) => state.user.cliente);
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
 
   const removeFromCart = (id: any) => {
     dispatch(removeProductFromCart(id));
@@ -66,6 +69,11 @@ const Cart: React.FC<CartProps>  = ({setShowDomicilio}) => {
   }, []);
   
   const handleSaveCart = async () => {
+    if (!isLoggedIn) {
+      toast.warn("Debe registrarse o iniciar sesión para continuar con el pago.");
+      return;
+    }
+
     try {
       let totalPedido = 0;
 
@@ -102,17 +110,17 @@ const Cart: React.FC<CartProps>  = ({setShowDomicilio}) => {
       const pedidoResponse = await pedidoService.post(`${API_URL}/pedido`, pedido);
 
       dispatch(resetCart());
-      alert('El pedido se guardó correctamente');
+      toast.success("El pedido se guardó correctamente.");
 
     } catch (error) {
       console.error('Error al guardar el pedido:', error);
-      alert('Hubo un error al guardar el pedido.');
+      toast.error("Hubo un error al guardar el pedido.");
     }
   };
-  
 
   return (
     <div className="cart">
+      <ToastContainer />
       <div className="cart-items">
         <div className="cart-items-title">
           <p>Items</p>
