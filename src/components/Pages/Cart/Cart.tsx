@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { removeProductFromCart, resetCart, updateProductQuantity } from "../../../redux/slices/cartSlice";
 import "./Cart.css";
 import { useAppSelector } from "../../../hooks/redux";
@@ -10,7 +10,7 @@ import { DetallePedidoPost } from "../../../types/PedidoPost/DetallePedidoPost";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const Cart = () => {
+const Cart = () => {
   const dispatch = useDispatch();
   const { productsList, productQuantities } = useAppSelector((state) => state.cart);
   const [paymentMethod, setPaymentMethod] = useState(""); // Estado para método de pago
@@ -38,18 +38,6 @@ export const Cart = () => {
       subtotal += product.precioVenta * quantity;
     });
     return subtotal;
-  };
-
-  const totalConDescuento = () => {
-    const subtotal = calculateTotal();
-    if (shippingType === "TAKE_AWAY") {
-      return subtotal * 0.9;
-    }
-    return subtotal;
-  };
-
-  const handleChangeShippingType = (e : any) => {
-    setShippingType(e.target.value);
   };
 
   const handleSaveCart = async () => {
@@ -92,11 +80,13 @@ export const Cart = () => {
 
       dispatch(resetCart());
       alert('El pedido se guardó correctamente');
+
     } catch (error) {
       console.error('Error al guardar el pedido:', error);
-      alert('No hay stock de algun producto seleccionado.');
+      alert('Hubo un error al guardar el pedido.');
     }
   };
+  
 
   return (
     <div className="cart">
@@ -155,7 +145,7 @@ export const Cart = () => {
             <hr />
             <div className="cart-total-details">
               <b>Total</b>
-              <b>${totalConDescuento()}</b>
+              <b>${calculateTotal()}</b>
             </div>
           </div>
           <div className="payment-options">
@@ -174,7 +164,7 @@ export const Cart = () => {
             <select
               id="tipoEnvio"
               value={shippingType}
-              onChange={handleChangeShippingType}
+              onChange={(e) => setShippingType(e.target.value)}
             >
               <option value="">Seleccione Tipo de Envío</option>
               <option value="DELIVERY">Delivery</option>
@@ -189,3 +179,4 @@ export const Cart = () => {
   );
 };
 
+export default Cart;

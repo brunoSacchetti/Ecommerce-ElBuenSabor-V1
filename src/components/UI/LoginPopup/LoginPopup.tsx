@@ -45,6 +45,8 @@ export const LoginPopup: React.FC<LoginProps> = ({ setShowLogin }) => {
         method = 'POST'; // Puedes ajustar según la implementación en el backend
       }
 
+
+      //#region REVISAR
       const response = await fetch(url, {
         method: method,
         headers: {
@@ -69,7 +71,7 @@ export const LoginPopup: React.FC<LoginProps> = ({ setShowLogin }) => {
       setShowLogin(false);
     } catch (error : any) {
       console.error('Error:', error);
-      setErrorMessage(error.message);
+      setErrorMessage("Usuario y/o Contraseña incorrecta");
       // Manejar el error en el registro o login
     }
   };
