@@ -65,8 +65,27 @@
     top: -8px;
     right: -8px;
 }
-@media (max-width: 750px) {
+@media (max-width: 900px) {
     .navbar-menu {
-        display: none; 
+        display: block;
+    }
+    .userName{
+        display: none;
     }
 }
+
+@media (max-width: 500px) {
+    .navbar-menu {
+        display: block;
+        justify-content:center;
+    }
+    .userName{
+        display: none;
+    }
+}
+
+/* @media (max-width: 750px) {
+    .cart-items-title, .cart-items-items {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+} */

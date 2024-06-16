@@ -4,25 +4,23 @@
   background-color: #f8f9fa; /* Fondo claro para todo el contenedor */
 }
 
-.cart-items-title {
+.cart-items-title, .cart-items-items {
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 0.5fr;
   align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e2e2; /* Línea inferior para separar el título y los ítems */
+}
+
+.cart-items-title {
   color: grey;
   font-size: max(1vw, 12px);
   font-weight: bold;
-  padding: 10px 0;
-  border-bottom: 1px solid #e2e2e2; /* Línea inferior para separar el título */
 }
 
 .cart-items-items {
   margin: 10px 0;
   color: black;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 0.5fr;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #e2e2e2; /* Línea inferior para separar los ítems */
 }
 
 .cart-items-items img {
@@ -38,16 +36,16 @@
   margin-top: 70px;
   display: flex;
   justify-content: space-between;
-  gap: max(12vw, 20px);
+  gap: max(2vw, 20px);
   flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
 }
 
-.cart-total {
+.cart-total, .cart-promocode, .payment-options {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background-color: white; /* Fondo blanco para la sección del total */
+  background-color: white; /* Fondo blanco para la sección */
   padding: 20px;
   border-radius: 10px; /* Bordes redondeados */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
@@ -69,7 +67,7 @@
   margin: 10px 0;
 }
 
-.cart-total .pay {
+.cart-total .pay, .save-cart .custom-btn {
   border: none;
   color: white;
   background-color: tomato;
@@ -81,19 +79,8 @@
   transition: background-color 0.3s ease;
 }
 
-.cart-total button:hover {
+.cart-total .pay:hover, .save-cart .custom-btn:hover {
   background-color: #e04c2f;
-}
-
-.cart-promocode {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: white; 
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
 .cart-promocode p {
@@ -135,24 +122,71 @@
   background-color: #333; /* Color más claro al pasar el ratón */
 }
 
-.cart-total .pay {
-  border: none;
-  color: white;
-  background-color: tomato;
+.payment-options {
+  margin-top: 20px;
+}
+
+.payment-options label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.payment-options select, .payment-methods select {
   width: 100%;
-  padding: 12px 0;
-  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.payment-options select:focus, .payment-methods select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.payment-options .add-address-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s ease;
 }
 
-.cart-total .pay:hover {
-  background-color: #e04c2f;
+.payment-options .add-address-btn:hover {
+  background-color: #0056b3;
 }
 
+.payment-options .payment-methods {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
 
-@media (max-width: 750px) {
+.payment-options .payment-methods .mercado-pago {
+  background-color: #f7f7f7;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.payment-options .payment-methods .mercado-pago:hover {
+  background-color: #e4e4e4;
+}
+
+.save-cart {
+  text-align: center;
+  margin-top: 20px;
+  width: 30%;
+}
+
+@media (max-width: 600px) {
   .cart-bottom {
     flex-direction: column-reverse;
   }
@@ -160,6 +194,21 @@
     margin-bottom: 20px;
   }
   .cart-items-title, .cart-items-items {
-    grid-template-columns: 1fr 2fr 1fr 1fr; /* Ajustar la rejilla para pantallas pequeñas */
+    grid-template-columns:  1fr 1.5fr 1fr 1fr 1fr 0.5fr; /* Ajustar la rejilla para pantallas pequeñas */
+  }
+  .payment-options {
+    padding: 15px;
+  }
+  .payment-options select, .payment-methods select {
+    font-size: 0.9rem;
+  }
+  .payment-options .add-address-btn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+  .save-cart .custom-btn {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 10px;
   }
 }

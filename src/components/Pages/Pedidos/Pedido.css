@@ -1,0 +1,29 @@
+/* Pedido.css */
+
+.custom-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse; /* Colapsamos los bordes de la tabla para un aspecto más limpio */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px; /* Espaciado interno de las celdas */
+  text-align: center; /* Centrado del texto */
+  border: 1px solid #dddddd; /* Borde delgado entre celdas */
+}
+
+.custom-table th {
+  background-color: #e08548; /* Color de fondo para los encabezados */
+  color: #333; /* Color de texto para los encabezados */
+}
+
+.custom-table td {
+  background-color: #ffffff; /* Color de fondo para las celdas de datos */
+  color: #555; /* Color de texto para las celdas de datos */
+}
+
+.custom-table tr:hover {
+  background-color: #f5f5f5; /* Color de fondo al pasar el ratón sobre la fila */
+}

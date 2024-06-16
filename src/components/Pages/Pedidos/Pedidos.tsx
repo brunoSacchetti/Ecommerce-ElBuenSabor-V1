@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import IPedido from '../../../types/Pedido';
 
-
+import "./Pedido.css"
 import {
   Table,
   TableHead,
@@ -43,11 +43,13 @@ export const Pedidos: React.FC = () => {
   }, []);
 
   return (
-    <TableContainer component={Paper}>
-      <Typography variant="h4" component="div" gutterBottom>
+    <>
+    <Typography variant="h4" component="div" gutterBottom style={{ marginBottom: '20px' }}>
         Pedidos
       </Typography>
-      <Table>
+    <TableContainer component={Paper} style={{ maxWidth: '1000px', margin: 'auto' }}>
+      
+      <Table className="custom-table">
         <TableHead>
           <TableRow>
             <TableCell>Cliente</TableCell>
@@ -56,7 +58,6 @@ export const Pedidos: React.FC = () => {
             <TableCell>Fecha Pedido</TableCell>
             <TableCell>Hora Estimada Finalización</TableCell>
           </TableRow>
-          <TableRow></TableRow>
         </TableHead>
         <TableBody>
           {pedidos.map(pedido => (
@@ -71,5 +72,6 @@ export const Pedidos: React.FC = () => {
         </TableBody>
       </Table>
     </TableContainer>
+    </>
   );
 };

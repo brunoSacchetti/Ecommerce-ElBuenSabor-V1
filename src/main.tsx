@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './redux/store/store.ts'
 import { login } from './redux/slices/userSlice.ts';
-
+import "./index.css"
 const user = localStorage.getItem('user');
 if (user) {
   store.dispatch(login(JSON.parse(user))); // Restaura el estado de autenticación

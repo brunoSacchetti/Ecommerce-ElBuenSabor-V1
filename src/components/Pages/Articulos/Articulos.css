@@ -43,7 +43,7 @@
 .card img {
   width: 100%; /* Ancho completo */
   height: 100%; /* Altura completa */
-  object-fit: cover; /* Ajusta la imagen dentro del contenedor manteniendo la proporción */
+  object-fit: contain; /* Ajusta la imagen dentro del contenedor manteniendo la proporción */
   object-position: center; /* Centra la imagen dentro del contenedor */
 }
 

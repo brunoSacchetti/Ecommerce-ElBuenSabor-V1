@@ -135,6 +135,14 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
     }
   };
 
+  const handleAddDomicilioClick = () => {
+    if (!isLoggedIn) {
+      toast.warn("Debe registrarse o iniciar sesión para agregar un domicilio.");
+      return;
+    }
+    setShowDomicilio(true);
+  };
+  
   return (
     <div className="cart">
       <ToastContainer />
@@ -223,7 +231,8 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
                     </option>
                   ))}
                 </select>
-                <Button onClick={() => setShowDomicilio(true)}>Añadir un Domicilio</Button>
+                {/* <Button onClick={() => setShowDomicilio(true)}>Añadir un Domicilio</Button> */}
+                <Button onClick={handleAddDomicilioClick}>Añadir un Domicilio</Button>
               </div>
             )}
             <label htmlFor="formaPago">Forma de Pago:</label>
