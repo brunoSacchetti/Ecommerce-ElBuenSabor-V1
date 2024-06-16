@@ -8,6 +8,7 @@ import Cart from "../components/pages/Cart/Cart";
 import { Pedidos } from "../components/pages/Pedidos/Pedidos";
 import { DomicilioPopup } from "../components/ui/DomicilioPopup/DomicilioPopup";
 import CartMP from "../components/pages/Cart/CartMP";
+import CartMP2 from "../components/pages/Cart/CartMP2";
 
 
 export const AppRouter = () => {
@@ -23,7 +24,7 @@ export const AppRouter = () => {
           <Route path="/" element={<Home />} />
           <Route path="/articulos" element={<Articulos/>} />
           {/* <Route path="/cart" element={<Cart setShowDomicilio={setShowDomicilio}/>} /> */}
-          <Route path="/cart" element={<CartMP setShowDomicilio={setShowDomicilio}/>} />
+          <Route path="/cart" element={<CartMP2 setShowDomicilio={setShowDomicilio}/>} />
           <Route path="/pedidos" element={ <Pedidos/>} />
         </Routes>
       </div>
