@@ -15,7 +15,7 @@ export const LoginPopup: React.FC<LoginProps> = ({ setShowLogin }) => {
     telefono: '',
     email: '',
     fechaNacimiento: '',
-    domicilios: [{ calle: 'a', numero: 2, cp: 4, piso: 1, nroDpto: 1, idLocalidad: 1 }], // Ejemplo de domicilio, ajusta según tus necesidades
+    domicilios: [{ calle: '', numero: 0, cp: 0, piso: 0, nroDpto: 0, idLocalidad: 0 }], // Ejemplo de domicilio, ajusta según tus necesidades
     imagenUrl: '',
     userName: '',
     password: ''
@@ -87,11 +87,12 @@ export const LoginPopup: React.FC<LoginProps> = ({ setShowLogin }) => {
         <div className="login-popup-inputs">
           {currState === "Login" ? null :
             <>
-              <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} placeholder='Your Name' required />
-              <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} placeholder='Your Last Name' required />
-              <input type="text" name="telefono" value={formData.telefono} onChange={handleChange} placeholder='Your Phone' required />
+              <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} placeholder='Nombre' required />
+              <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} placeholder='Apellido' required />
+              <input type="text" name="telefono" value={formData.telefono} onChange={handleChange} placeholder='Telefono' required />
               <input type="date" name="fechaNacimiento" value={formData.fechaNacimiento} onChange={handleChange} required />
-              <input type="text" name="imagenUrl" value={formData.imagenUrl} onChange={handleChange} placeholder='Image URL' />
+              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder='Email' required />
+              <input type="text" name="imagenUrl" value={formData.imagenUrl} onChange={handleChange} placeholder='URL imagen' />
             </>
           }
           <input type="text" name="userName" value={formData.userName} onChange={handleChange} placeholder='User Name' required />
