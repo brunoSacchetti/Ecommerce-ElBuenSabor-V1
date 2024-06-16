@@ -5,6 +5,6 @@ export interface PedidoPost extends Base<PedidoPost> {
     tipoEnvio: string,
     formaPago: string,
     clienteID?: number,
-    domicilioID?: number
+    domicilioID?: number | null,
     detallePedidos: DetallePedidoPost[]
 }

@@ -9,9 +9,9 @@ import { PedidoPost } from "../../../types/PedidoPost/PedidoPost";
 import { DetallePedidoPost } from "../../../types/PedidoPost/DetallePedidoPost";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Button } from "react-bootstrap";
 import axios from "axios";
 import { Wallet, initMercadoPago } from "@mercadopago/sdk-react";
+import { Button } from "react-bootstrap";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -25,6 +25,8 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
   const [paymentMethod, setPaymentMethod] = useState(""); // Estado para método de pago
   const [shippingType, setShippingType] = useState(""); // Estado para tipo de envío
   const [selectedDomicilio, setSelectedDomicilio] = useState<number | null>(null);
+  const [preferenceId, setPreferenceId] = useState<string | null>(null);
+
   const pedidoService = new PedidoService(`${API_URL}/pedido`);
 
   const cliente = useAppSelector((state) => state.user.cliente);
@@ -89,7 +91,7 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
         tipoEnvio: shippingType,
         formaPago: paymentMethod,
         clienteID: cliente?.id,
-        domicilioID: selectedDomicilio || undefined,
+        domicilioID: shippingType === "TAKE_AWAY" ? 1 : selectedDomicilio || null,
         detallePedidos: [],
       };
 
@@ -115,11 +117,15 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
 
       const pedidoResponse = await pedidoService.post(`${API_URL}/pedido`, pedido);
 
-      const preferenceResponse = await axios.post(
-        `${API_URL}/pagoMercadoPago`,
-        { ...pedido, total: totalPedido }
-      );
-      setPreferenceId(preferenceResponse.data.id);
+      if (paymentMethod === "MERCADO_PAGO") {
+        const preferenceResponse = await axios.post(
+          `${API_URL}/pagoMercadoPago`,
+          { ...pedido, total: totalPedido }
+        );
+        setPreferenceId(preferenceResponse.data.id);
+      } else {
+        setPreferenceId(null); 
+      }
 
       dispatch(resetCart());
       toast.success("El pedido se guardó correctamente.");
@@ -129,7 +135,6 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
     }
   };
 
-  const [preferenceId, setPreferenceId] = useState<string | null>(null);
   return (
     <div className="cart">
       <ToastContainer />
@@ -194,7 +199,8 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
               value={shippingType}
               onChange={(e) => {
                 setShippingType(e.target.value);
-                setSelectedDomicilio(null); // Resetear domicilio seleccionado si cambia el tipo de envío
+                setSelectedDomicilio(null);
+                setPaymentMethod(""); // Resetear método de pago cuando cambia el tipo de envío
               }}
             >
               <option value="">Seleccione Tipo de Envío</option>
@@ -217,6 +223,7 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
                     </option>
                   ))}
                 </select>
+                <Button onClick={() => setShowDomicilio(true)}>Añadir un Domicilio</Button>
               </div>
             )}
             <label htmlFor="formaPago">Forma de Pago:</label>
@@ -226,7 +233,7 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
               onChange={(e) => setPaymentMethod(e.target.value)}
             >
               <option value="">Seleccione Forma de Pago</option>
-              <option value="EFECTIVO">Efectivo</option>
+              {shippingType === "TAKE_AWAY" && <option value="EFECTIVO">Efectivo</option>}
               <option value="MERCADO_PAGO">Mercado Pago</option>
             </select>
           </div>
@@ -236,7 +243,7 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
             Comprar
           </button>
         </div>
-        {preferenceId && (
+        {preferenceId && paymentMethod === "MERCADO_PAGO" && (
           <Wallet
             initialization={{
               preferenceId: preferenceId,
