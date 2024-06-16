@@ -227,7 +227,7 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
             >
               <option value="">Seleccione Forma de Pago</option>
               <option value="EFECTIVO">Efectivo</option>
-              <option value="TARJETA">Tarjeta</option>
+              <option value="MERCADO_PAGO">Mercado Pago</option>
             </select>
           </div>
         </div>
