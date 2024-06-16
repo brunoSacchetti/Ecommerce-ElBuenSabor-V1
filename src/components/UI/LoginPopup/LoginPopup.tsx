@@ -15,7 +15,7 @@ export const LoginPopup: React.FC<LoginProps> = ({ setShowLogin }) => {
     telefono: '',
     email: '',
     fechaNacimiento: '',
-    domicilios: [{ calle: '', numero: 0, cp: 0, piso: 0, nroDpto: 0, idLocalidad: 0 }], // Ejemplo de domicilio, ajusta según tus necesidades
+    domicilios: [{ calle: '9 de Juli', numero: 53, cp:5500 , piso: 1, nroDpto: 1, idLocalidad: 1 }], // Ejemplo de domicilio, ajusta según tus necesidades
     imagenUrl: '',
     userName: '',
     password: ''

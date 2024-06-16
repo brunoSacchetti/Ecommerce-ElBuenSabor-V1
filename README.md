@@ -7,3 +7,8 @@ npm install @mercadopago/sdk-react
 
 npm install mercadopago-checkout-sdk
 
+--
+Usuario con mail valido
+
+user: pruebaUser
+clave: 123456abc
