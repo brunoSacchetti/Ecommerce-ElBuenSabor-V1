@@ -1,0 +1,18 @@
+/* Articulos.css */
+.price-filter-container {
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .price-filter-container label {
+    font-weight: bold;
+  }
+  
+  .price-filter-container select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  

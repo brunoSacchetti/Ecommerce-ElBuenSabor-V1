@@ -10,11 +10,14 @@ import { ImagenService } from '../../../services/ImagenService';
 import { useAppSelector } from '../../../hooks/redux';
 import { addProductToCart, removeProductFromCart, updateProductQuantity } from '../../../redux/slices/cartSlice';
 import { useDispatch } from 'react-redux';
+import PriceFilter from '../../ui/PriceFilter/PriceFilter';
 
 export const Articulos = () => {
   const categoriaService = new CategoriaService(API_URL + '/categoria');
   const [categorias, setCategorias] = useState<ICategoria[]>([]);
   const [filteredItems, setFilteredItems] = useState<IArticulo[]>([]);
+
+  const [filterOption, setFilterOption] = useState<string>('default'); 
 
   const location = useLocation();
   const { categoria } = location.state as { categoria: ICategoria };
@@ -74,7 +77,7 @@ export const Articulos = () => {
     }
   };
 
-  const fetchAndFilterData = async () => {
+  /* const fetchAndFilterData = async () => {
     const insumos = filterInsumos(categoria);
     const manufacturados = filterArticulosManufacturados(categoria);
     const items = [...insumos, ...manufacturados];
@@ -87,11 +90,36 @@ export const Articulos = () => {
     );
 
     setFilteredItems(itemsWithImages);
+  }; */
+
+  //Filtrar 
+  const fetchAndFilterData = async () => {
+    const insumos = filterInsumos(categoria);
+    const manufacturados = filterArticulosManufacturados(categoria);
+    let items = [...insumos, ...manufacturados];
+    
+    const itemsWithImages = await Promise.all(
+      items.map(async (item) => {
+        const images = await fetchImages(item);
+        return { ...item, imagenes: images };
+      })
+    );
+
+    // Ordenar los artículos según la opción de filtrado seleccionada
+    if (filterOption === 'priceAsc') {
+      itemsWithImages.sort((a, b) => a.precioVenta - b.precioVenta);
+    } else if (filterOption === 'priceDesc') {
+      itemsWithImages.sort((a, b) => b.precioVenta - a.precioVenta);
+    }
+
+    setFilteredItems(itemsWithImages);
   };
 
   useEffect(() => {
     fetchAndFilterData();
-  }, [categoria]);
+  }, [categoria, filterOption]);
+
+  
 
   // Carrito
   const { productsList } = useAppSelector((state) => state.cart);
@@ -121,6 +149,7 @@ export const Articulos = () => {
   return (
     <div className="articulos-container">
       <h1>{categoria.denominacion}</h1>
+      <PriceFilter filterOption={filterOption} setFilterOption={setFilterOption} />
       <div className="articulos-list">
         {filteredItems.map((item, index) => (
           <Card key={index} className="card">
@@ -134,7 +163,7 @@ export const Articulos = () => {
               <Card.Text className="card-text">
                 {item.descripcion}
                 <br />
-                <h5>Precio: ${item.precioVenta}</h5>
+                <h5>Precio: $ {item.precioVenta}</h5>
               </Card.Text>
               <div className="quantity-control">
                 <button className="custom-btn" onClick={() => handleDecrementQuantity(item.id)}>-</button>

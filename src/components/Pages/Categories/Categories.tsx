@@ -28,6 +28,11 @@ export const Categories = () => {
     navigate("/articulos", { state: { categoria } });
   };
 
+  const getImagePath = (denominacion: string) => {
+    return `./${denominacion.toLowerCase()}.jpg`; // Asumiendo que los nombres de las imágenes coinciden exactamente con las denominaciones en minúsculas
+  };
+  
+
   return (
     <div className="explore-menu" id='explore-menu'>
       <div className="centrados">
@@ -37,9 +42,9 @@ export const Categories = () => {
         </p>
       </div>
       <div className="explore-menu-list">
-        {categorias?.map((item, index) => (
+      {categorias?.map((item, index) => (
           <div key={index} className="explore-menu-list-item" onClick={() => handleCategoriaClick(item)}>
-            <img src="./POLLOLOGO.png" alt='' />
+            <img src={getImagePath(item.denominacion)} alt='' />
             <p>{item.denominacion}</p>
           </div>
         ))}

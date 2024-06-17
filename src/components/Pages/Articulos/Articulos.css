@@ -20,7 +20,7 @@
 }
 
 .card {
-  width: 18rem;
+  width: 27rem;
   margin-bottom: 20px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1); /* Sombra suave */
   transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transición de la sombra y el tamaño */
@@ -74,6 +74,8 @@
   color: #333; /* Color del precio */
   font-weight: bold;
   margin-top: 10px;
+  text-align: center;
+  color: #272727;
 }
 
 .card-btn {
