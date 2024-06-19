@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { removeProductFromCart, resetCart, updateProductQuantity } from "../../../redux/slices/cartSlice";
 import "./Cart.css";
 import { useAppSelector } from "../../../hooks/redux";

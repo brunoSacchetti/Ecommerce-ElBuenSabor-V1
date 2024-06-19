@@ -1,6 +1,4 @@
-import { Base } from "../../Base";
-
-export interface DetallePedidoPost extends Base<DetallePedidoPost> {
+export interface DetallePedidoPost{
     cantidad: number;
     subTotal: number;
     idArticulo: number;
