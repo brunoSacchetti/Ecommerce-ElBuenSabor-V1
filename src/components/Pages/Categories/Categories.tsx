@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, forwardRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CategoriaService } from '../../../services/CategoriaService';
 import { ICategoria } from '../../../types/Categoria';
 const API_URL = import.meta.env.VITE_API_URL;
 import "./Categories.css";
 
-export const Categories = () => {
+export const Categories = forwardRef<HTMLDivElement>((_, ref) => {
   const categoriaService = new CategoriaService(API_URL + "/categoria");
   const [categorias, setCategorias] = useState<ICategoria[]>();
   const navigate = useNavigate();
@@ -31,10 +31,9 @@ export const Categories = () => {
   const getImagePath = (denominacion: string) => {
     return `./${denominacion.toLowerCase()}.jpg`; // Asumiendo que los nombres de las imágenes coinciden exactamente con las denominaciones en minúsculas
   };
-  
 
   return (
-    <div className="explore-menu" id='explore-menu'>
+    <div className="explore-menu" id="explore-menu" ref={ref}>
       <div className="centrados">
         <h1>Explora Nuestro Menú</h1>
         <p className='explore-menu-text'>
@@ -42,9 +41,9 @@ export const Categories = () => {
         </p>
       </div>
       <div className="explore-menu-list">
-      {categorias?.map((item, index) => (
+        {categorias?.map((item, index) => (
           <div key={index} className="explore-menu-list-item" onClick={() => handleCategoriaClick(item)}>
-            <img src={getImagePath(item.denominacion)} alt='' />
+            <img src={getImagePath(item.denominacion)} alt={item.denominacion} />
             <p>{item.denominacion}</p>
           </div>
         ))}
@@ -52,5 +51,4 @@ export const Categories = () => {
       <hr />
     </div>
   );
-};
-
+});

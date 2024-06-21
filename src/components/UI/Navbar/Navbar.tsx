@@ -29,7 +29,6 @@ export const Navbar: React.FC<NavbarProps> = ({ setShowLogin }) => {
       <ul className="navbar-menu">
         <li onClick={() => setMenu("Home")} className={menu === "Home" ? "active" : ""}><Link className='link' to={"/"}>Home</Link></li>
         <li onClick={() => setMenu("Promociones")} className={menu === "Promociones" ? "active" : ""}><Link className='link' to={"/promociones"}>Promociones</Link></li>
-        <li onClick={() => setMenu("Categorias")} className={menu === "Categorias" ? "active" : ""}>Categorias</li>
         {isLoggedIn && cliente ? ( <li onClick={() => setMenu("Pedidos")} className={menu === "Pedidos" ? "active" : ""}><Link className='link' to={"/pedidos"}> Pedidos</Link></li>) : ( <></> )}
        
       </ul>

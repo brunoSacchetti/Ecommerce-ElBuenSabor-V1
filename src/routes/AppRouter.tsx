@@ -9,11 +9,13 @@ import { DomicilioPopup } from "../components/ui/DomicilioPopup/DomicilioPopup";
 import CartMP2 from "../components/pages/Cart/CartMP2";
 
 
+
 export const AppRouter = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showDomicilio, setShowDomicilio] = useState(false);
   return (
     <>
+     
       {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
       {showDomicilio ? <DomicilioPopup setShowDomicilio={setShowDomicilio} /> : <></>}
       <div className="app">

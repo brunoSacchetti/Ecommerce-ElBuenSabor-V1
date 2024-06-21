@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Wallet, initMercadoPago } from "@mercadopago/sdk-react";
 import { Button } from "react-bootstrap";
-
+import DeleteIcon from '@mui/icons-material/Delete';
 const API_URL = import.meta.env.VITE_API_URL;
 
 type CartProps = {
@@ -177,8 +177,8 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
                 </div>
                 <p>${total}</p>
                 <p onClick={() => removeFromCart(item.id)} className="cross">
-                  x
-                </p>
+    <DeleteIcon /> 
+  </p>
               </div>
               <hr />
             </div>

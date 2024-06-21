@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
+
 import { CategoriaService } from '../../../services/CategoriaService';
 import { ICategoria } from '../../../types/Categoria';
 import IArticulo from '../../../types/IArticulo';
@@ -10,7 +10,16 @@ import { ImagenService } from '../../../services/ImagenService';
 import { useAppSelector } from '../../../hooks/redux';
 import { addProductToCart, removeProductFromCart, updateProductQuantity } from '../../../redux/slices/cartSlice';
 import { useDispatch } from 'react-redux';
-import PriceFilter from '../../ui/PriceFilter/PriceFilter';
+
+
+import AspectRatio from '@mui/joy/AspectRatio';
+import Button from '@mui/joy/Button';
+import Card from '@mui/joy/Card';
+import CardContent from '@mui/joy/CardContent';
+import IconButton from '@mui/joy/IconButton';
+import Typography from '@mui/joy/Typography';
+import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
+
 
 export const Articulos = () => {
   const categoriaService = new CategoriaService(API_URL + '/categoria');
@@ -77,20 +86,6 @@ export const Articulos = () => {
     }
   };
 
-  /* const fetchAndFilterData = async () => {
-    const insumos = filterInsumos(categoria);
-    const manufacturados = filterArticulosManufacturados(categoria);
-    const items = [...insumos, ...manufacturados];
-    
-    const itemsWithImages = await Promise.all(
-      items.map(async (item) => {
-        const images = await fetchImages(item);
-        return { ...item, imagenes: images };
-      })
-    );
-
-    setFilteredItems(itemsWithImages);
-  }; */
 
   //Filtrar 
   const fetchAndFilterData = async () => {
@@ -146,7 +141,9 @@ export const Articulos = () => {
     console.log(`Seleccionaste el artículo con ID: ${id}`);
   };
 
-  return (
+
+
+  /* return (
     <div className="articulos-container">
       <h1>{categoria.denominacion}</h1>
       <PriceFilter filterOption={filterOption} setFilterOption={setFilterOption} />
@@ -180,5 +177,38 @@ export const Articulos = () => {
         ))}
       </div>
     </div>
+  ); */
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+      {filteredItems.map((item, index) => (
+        <Card key={index} sx={{ width: 320, marginBottom: '20px' }}>
+          <AspectRatio minHeight="120px" maxHeight="200px" style={{ overflow: 'hidden' }}>
+            <div
+              style={{
+                backgroundImage: `url(${item.imagenes[0]?.url || './POLLOLOGO.png'})`,
+                backgroundSize: 'contain',
+                backgroundPosition: 'center',
+                width: '100%',
+                height: '100%',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
+          </AspectRatio>
+          <Typography level="title-lg">{item.denominacion}</Typography>
+          <Typography level="body-xs" sx={{ mt: 1 }}>{item.descripcion}</Typography>
+          <CardContent orientation="horizontal">
+            <div style={{ display: 'flex', alignItems: 'center', maxHeight: '50px' }}>
+              <button className="custom-btn" onClick={() => handleDecrementQuantity(item.id)}>-</button>
+              <span className="quantity">{productQuantities[item.id] || 0}</span>
+              <button className="custom-btn" onClick={() => handleIncrementQuantity(item.id)}>+</button>
+            </div>
+            <button className="custom-btn" style={{ maxHeight: '50px' }} onClick={() => handleAddOrRemoveProduct(item)}>
+              {productsList.find((pdt) => pdt.id === item.id) ? 'Quitar del carrito' : 'Añadir al carrito'}
+            </button>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
   );
+  
 };

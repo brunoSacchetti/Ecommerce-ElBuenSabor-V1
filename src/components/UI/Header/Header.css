@@ -1,5 +1,5 @@
 .header {
-  height: 34vw; /* Altura relativa al ancho de la pantalla */
+  height: 30vw  ; /* Altura relativa al ancho de la pantalla */
   margin: 30px auto; /* Margen automático para centrar horizontalmente */
   background-image: url("/header_img.png"); /* Imagen de fondo */
   background-size: cover; /* Ajuste para cubrir completamente el contenedor */
@@ -12,75 +12,28 @@
 
 .headers-content {
   position: absolute;
-  bottom: 10%; /* Distancia desde abajo */
-  left: 6vw; /* Distancia desde la izquierda */
-  width: 50%; /* Ancho máximo del contenido */
-  color: white; /* Color del texto */
-  animation: fadeIn 3s; /* Animación de entrada */
+  bottom: 10%; 
+  left: 6vw; 
+  width: 80%; 
+  color: white; 
+  animation: fadeIn 3s; 
 }
+
 
 .headers-content h2 {
   font-weight: 500;
-  font-size: max(4.5vw, 22px); /* Tamaño de fuente adaptable */
-  margin-bottom: 10px; /* Margen inferior */
+  font-size: min(max(4vw, 22px), 5vw); 
+  margin-bottom: 10px; 
 }
 
-.headers-content p {
-  font-size: max(1vw, 13px); /* Tamaño de fuente adaptable */
-  font-weight: 300; /* Peso de la fuente */
-  line-height: 1.5; /* Altura de línea */
-  margin-bottom: 20px; /* Margen inferior */
-}
-
-
-.headers-content button {
-  background-color: #ffffff; /* Color de fondo del botón */
-  color: #747474; /* Color del texto del botón */
-  font-size: max(1vw, 13px); /* Tamaño de fuente adaptable */
-  font-weight: 500; /* Peso de la fuente */
-  padding: 12px 30px; /* Relleno del botón */
-  border: none; /* Sin borde */
-  border-radius: 50px; /* Borde redondeado */
-  cursor: pointer; /* Cursor apuntador */
-  transition: background-color 0.3s ease; /* Transición suave */
-}
-
-.headers-content button:hover {
-  background-color: #e0e0e0; /* Color de fondo al pasar el ratón */
-}
-
-.header {
-  height: 40vw; /* Ajuste relativo para una mejor visualización en dispositivos móviles */
-  margin: 30px auto; /* Margen automático para centrar horizontalmente */
-  background-image: url("/header_img.png"); /* Imagen de fondo */
-  background-size: cover; /* Ajuste para cubrir completamente el contenedor */
-  background-position: center; /* Posición centrada de la imagen de fondo */
-  position: relative;
-  background-repeat: no-repeat;
-  width: 80%;
-  border-radius: 25px;
-}
-
-.headers-content {
-  position: absolute;
-  bottom: 10%; /* Distancia desde abajo */
-  left: 6vw; /* Distancia desde la izquierda */
-  width: 80%; /* Ancho máximo del contenido ajustado */
-  color: white; /* Color del texto */
-  animation: fadeIn 3s; /* Animación de entrada */
-}
-
-.headers-content h2 {
-  font-weight: 500;
-  font-size: min(max(4vw, 22px), 5vw); /* Tamaño de fuente adaptable */
-  margin-bottom: 10px; /* Margen inferior */
-}
 
 .headers-content p {
   font-size: min(max(1vw, 13px), 1.2vw); /* Tamaño de fuente adaptable */
   font-weight: 300; /* Peso de la fuente */
   line-height: 1.5; /* Altura de línea */
 }
+
+
 
 .headers-content button {
   background-color: #ffffff; /* Color de fondo del botón */
@@ -97,3 +50,5 @@
 .headers-content button:hover {
   background-color: #e0e0e0; /* Color de fondo al pasar el ratón */
 }
+
+
