@@ -22,7 +22,7 @@
 
 .headers-content h2 {
   font-weight: 500;
-  font-size: min(max(4vw, 22px), 5vw); 
+  font-size: min(max(6vw, 22px), 3vw);
   margin-bottom: 10px; 
 }
 

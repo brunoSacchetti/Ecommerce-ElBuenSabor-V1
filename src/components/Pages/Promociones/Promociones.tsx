@@ -69,9 +69,9 @@ const Promociones = () => {
 
 
   return (
-    <>
+    < div style={{display:'flex',flexWrap:'wrap',justifyContent:'space-around'}}>
     {promociones.map((item:any, index:any) => (
-    <Card sx={{ maxWidth: 345 }} key={index}>
+    <Card sx={{ maxWidth: 345 }} key={index} style={{background: '#f9f0e6'}} >
       <CardHeader
         action={
           <IconButton aria-label="settings">
@@ -110,7 +110,7 @@ const Promociones = () => {
           <ExpandMoreIcon />
         </ExpandMore>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={expanded} timeout="auto" unmountOnExit style={{background: '#f7e6d4'}}>
             {item.detalles.map((detalle : any, index : any) => (
               <CardContent key={index}>
                 <Typography paragraph>Detalle:</Typography>
@@ -130,7 +130,7 @@ const Promociones = () => {
           </Collapse>
     </Card>
     ))}
-    </>
+    </div>
   );
 
 }
