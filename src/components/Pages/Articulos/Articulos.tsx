@@ -19,6 +19,7 @@ import CardContent from '@mui/joy/CardContent';
 import IconButton from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
 import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
+import PriceFilter from '../../ui/PriceFilter/PriceFilter';
 
 
 export const Articulos = () => {
@@ -179,6 +180,9 @@ export const Articulos = () => {
     </div>
   ); */
   return (
+    <>
+    <h2 style={{display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "50px", color: "#f17d60"}}>{categoria.denominacion}</h2>
+    <PriceFilter filterOption={filterOption} setFilterOption={setFilterOption} />
     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
       {filteredItems.map((item, index) => (
         <Card key={index} sx={{ width: 320, marginBottom: '20px' }}>
@@ -196,6 +200,12 @@ export const Articulos = () => {
           </AspectRatio>
           <Typography level="title-lg">{item.denominacion}</Typography>
           <Typography level="body-xs" sx={{ mt: 1 }}>{item.descripcion}</Typography>
+          <div style={{display: "block", justifyContent: "center"}}>
+            <Typography level="body-sm" >Precio:</Typography>
+            <Typography fontSize="lg" fontWeight="lg">
+              $ {item.precioVenta}
+            </Typography>
+          </div>
           <CardContent orientation="horizontal">
             <div style={{ display: 'flex', alignItems: 'center', maxHeight: '50px' }}>
               <button className="custom-btn" onClick={() => handleDecrementQuantity(item.id)}>-</button>
@@ -209,6 +219,7 @@ export const Articulos = () => {
         </Card>
       ))}
     </div>
+    </>
   );
   
 };
