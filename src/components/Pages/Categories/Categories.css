@@ -22,6 +22,7 @@
   text-align: center;
   margin: 20px 0px;
   overflow-x: scroll;
+  flex-wrap: wrap;
 }
 .explore-menu-list::-webkit-scrollbar{
   display: none;
@@ -71,4 +72,11 @@
 
 .explore-menu-list-item :hover{
   transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .centrados .explore-menu-text{
+    font-size: 0.7rem;
+  }
+
 }

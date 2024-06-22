@@ -66,6 +66,10 @@
     top: -8px;
     right: -8px;
 }
+.carrito-navBar{
+    display:none;
+}
+
 @media (max-width: 900px) {
     .navbar-menu {
         display: block;
@@ -75,12 +79,24 @@
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 550px) {
     .navbar-menu {
         display: block;
         justify-content:center;
     }
     .userName{
+        display: none;
+    }
+    .carrito-navBar{
+        display: block;
+    }
+    .carrito-navBar img{
+        width: 15px;
+        margin-left: 5px;
+        margin-bottom: 3px;
+        height: 15px;
+    }
+    .navbar-search-icon{
         display: none;
     }
 }

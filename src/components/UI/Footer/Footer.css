@@ -46,3 +46,18 @@
     background-color: grey;
     border: none;
 }
+
+@media (max-width: 768px) {
+  .footer-content{
+    width: 100%;
+    display: block;
+  }
+  .footer-content-left, .footer-content-right, .footer-content-center{
+    padding: 20px;
+  }
+  .footer{
+    padding-top: 40px;
+    margin-top: 60px;
+  }
+
+}

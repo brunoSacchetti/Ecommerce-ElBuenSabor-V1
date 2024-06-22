@@ -8,9 +8,7 @@ export const Footer = () => {
         <div className="footer-content-left">
           <img src="./POLLOLOGO.png" alt="" style={{height:'200px',width:'200px'}} />
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit
-            possimus perferendis placeat vero ad quis dicta distinctio
-            consequuntur odit
+          En BuenSabor, nos dedicamos a ofrecerte las mejores comidas con ingredientes frescos y de alta calidad. Disfruta de una experiencia culinaria única y deléitate con nuestros sabores excepcionales.
           </p>
           <div className="footer-social-icons">
             <img src={assets.facebook_icon} alt="" />
@@ -30,7 +28,7 @@ export const Footer = () => {
             <h2>Contactanos</h2>
             <ul>
                 <li>+54-232312332</li>
-                <li>Buensabor@gmail.comm</li>
+                <li>Buensabor@gmail.com</li>
             </ul>
         </div>
       </div>

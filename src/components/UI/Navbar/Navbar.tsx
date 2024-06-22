@@ -30,7 +30,13 @@ export const Navbar: React.FC<NavbarProps> = ({ setShowLogin }) => {
         <li onClick={() => setMenu("Home")} className={menu === "Home" ? "active" : ""}><Link className='link' to={"/"}>Home</Link></li>
         <li onClick={() => setMenu("Promociones")} className={menu === "Promociones" ? "active" : ""}><Link className='link' to={"/promociones"}>Promociones</Link></li>
         {isLoggedIn && cliente ? ( <li onClick={() => setMenu("Pedidos")} className={menu === "Pedidos" ? "active" : ""}><Link className='link' to={"/pedidos"}> Pedidos</Link></li>) : ( <></> )}
-       
+        <div className='carrito-navBar'>
+        <li onClick={() => setMenu("Carrito")} className={`carrito ${menu === "Carrito" ? "active" : ""}`} >
+
+  <Link className='link' to={"/cart"}>Carrito</Link><img src={assets.basket_icon} alt=""/>
+  
+</li>
+</div>
       </ul>
       <div className="navbar-right">
         {/* <img src={assets.search_icon} alt="" /> */}
