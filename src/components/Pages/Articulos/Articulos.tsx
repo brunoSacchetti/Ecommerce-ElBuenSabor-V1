@@ -17,7 +17,7 @@ import CardContent from '@mui/joy/CardContent';
 
 import Typography from '@mui/joy/Typography';
 
-import PriceFilter from '../../ui/PriceFilter/PriceFilter';
+import PriceFilter from '../../userInterface/PriceFilter/PriceFilter';
 
 
 export const Articulos = () => {

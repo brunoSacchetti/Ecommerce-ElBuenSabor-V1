@@ -1,15 +1,14 @@
-
-import { Header } from "../../ui/Header/Header";
+import { Header } from "../../userInterface/Header/Header";
 import { Categories } from "../Categories/Categories";
-import "./Home.css"
-import { Footer } from "../../ui/Footer/Footer";
+import "./Home.css";
+import { Footer } from "../../userInterface/Footer/Footer";
 import { useRef } from "react";
 
 export const Home: React.FC = () => {
   const exploreMenuRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToExploreMenu = () => {
-    exploreMenuRef.current?.scrollIntoView({ behavior: 'smooth' });
+    exploreMenuRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
