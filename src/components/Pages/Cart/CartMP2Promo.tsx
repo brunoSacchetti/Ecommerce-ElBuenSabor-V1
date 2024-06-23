@@ -87,8 +87,7 @@ const CartMP2Promo: React.FC<CartProps> = ({ setShowDomicilio }) => {
       let totalPedido = 0;
 
       const pedido: PedidoPost = {
-        id: 0,
-        eliminado: false,
+
         tipoEnvio: shippingType,
         formaPago: paymentMethod,
         clienteID: cliente?.id,

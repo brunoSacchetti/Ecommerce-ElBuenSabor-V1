@@ -1,7 +1,7 @@
 import { Base } from "../Base";
 import { DetallePedidoPost } from "./DetallePedidoPost";
 
-export interface PedidoPost extends Base<PedidoPost> {
+export interface PedidoPost  {
     tipoEnvio: string,
     formaPago: string,
     clienteID?: number,

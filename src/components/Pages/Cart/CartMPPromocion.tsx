@@ -107,6 +107,7 @@ const CartMPPromocion: React.FC<CartProps> = ({ setShowDomicilio }) => {
           product.detalles.forEach((detallePromocion: any) => {
             const idArticulo = detallePromocion.manufacturado?.id || detallePromocion.insumo?.id;
             const precioVenta = detallePromocion.manufacturado?.precioVenta || detallePromocion.insumo?.precioVenta || 0;
+
             
             const detalle: DetallePedidoPost = {
               cantidad: detallePromocion.cantidad * cantidad,
@@ -124,7 +125,7 @@ const CartMPPromocion: React.FC<CartProps> = ({ setShowDomicilio }) => {
           detalles.push(detalle);
         }
       });
-      const pedidoResponse = await pedidoService.post(`${API_URL}/pedido`, pedido);
+      //const pedidoResponse = await pedidoService.post(`${API_URL}/pedido`, pedido);
     
       
       pedido.detallePedidos = detalles; 

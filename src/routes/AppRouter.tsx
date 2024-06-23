@@ -9,6 +9,7 @@ import { DomicilioPopup } from "../components/ui/DomicilioPopup/DomicilioPopup";
 import CartMP2 from "../components/pages/Cart/CartMP2";
 import Promociones from "../components/pages/Promociones/Promociones";
 import CartMPPromocion from "../components/pages/Cart/CartMPPromocion";
+import CartMP2Promo from "../components/pages/Cart/CartMP2Promo";
 
 
 
@@ -25,7 +26,7 @@ export const AppRouter = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/articulos" element={<Articulos/>} />
-          <Route path="/cart" element={<CartMPPromocion setShowDomicilio={setShowDomicilio}/>} />
+          <Route path="/cart" element={<CartMP2Promo setShowDomicilio={setShowDomicilio}/>} />
           <Route path="/pedidos" element={ <Pedidos/>} />
           <Route path="/promociones" element={<Promociones/>} />
         </Routes>
