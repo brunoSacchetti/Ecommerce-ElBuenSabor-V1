@@ -19,18 +19,20 @@ type CartProps = {
   setShowDomicilio: (value: any) => void;
 };
 
-const CartMP2Promo: React.FC<CartProps> = ({ setShowDomicilio }) => {
+const CartMPPromocion: React.FC<CartProps> = ({ setShowDomicilio }) => {
   const dispatch = useDispatch();
   const { productsList, productQuantities } = useAppSelector((state) => state.cart);
-  const [paymentMethod, setPaymentMethod] = useState(""); // Estado para método de pago
-  const [shippingType, setShippingType] = useState(""); // Estado para tipo de envío
+  const [paymentMethod, setPaymentMethod] = useState(""); 
+  const [shippingType, setShippingType] = useState(""); 
   const [selectedDomicilio, setSelectedDomicilio] = useState<number | null>(null);
   const [preferenceId, setPreferenceId] = useState<string | null>(null);
-
-  const pedidoService = new PedidoService(`${API_URL}/pedido`);
+  const [discount, setDiscount] = useState(0); // Estado para el descuento
+  const [totalWithDiscount, setTotalWithDiscount] = useState(0); // Estado para el total con descuento
 
   const cliente = useAppSelector((state) => state.user.cliente);
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+
+  const pedidoService = new PedidoService(`${API_URL}/pedido`);
 
   initMercadoPago("TEST-24e8018b-3fad-4e09-b960-b3f81919ec2c", {
     locale: "es-AR",
@@ -45,7 +47,7 @@ const CartMP2Promo: React.FC<CartProps> = ({ setShowDomicilio }) => {
   };
 
   const decrementQuantity = (id: any) => {
-    dispatch(updateProductQuantity({ id, quantity: Math.max(productQuantities[id] - 1, 1) })); // Evita cantidad 0
+    dispatch(updateProductQuantity({ id, quantity: Math.max(productQuantities[id] - 1, 1) }));
   };
 
   const calculateTotal = () => {
@@ -72,31 +74,42 @@ const CartMP2Promo: React.FC<CartProps> = ({ setShowDomicilio }) => {
     }
   };
 
-  // Cargar los domicilios al montar el componente
   useEffect(() => {
     getDomicilios();
   }, []);
+
+  useEffect(() => {
+    if (shippingType === "TAKE_AWAY") {
+      const total = calculateTotal();
+      const discount = total * 0.1;
+      setDiscount(discount);
+      setTotalWithDiscount(total - discount);
+    } else {
+      setDiscount(0);
+      setTotalWithDiscount(calculateTotal());
+    }
+  }, [shippingType, productsList, productQuantities]);
 
   const handleSaveCart = async () => {
     if (!isLoggedIn) {
       toast.warn("Debe registrarse o iniciar sesión para continuar con el pago.");
       return;
     }
-
+  
     try {
       let totalPedido = 0;
-
+  
       const pedido: PedidoPost = {
-
+        total: 0,
         tipoEnvio: shippingType,
         formaPago: paymentMethod,
         clienteID: cliente?.id,
         domicilioID: shippingType === "TAKE_AWAY" ? 1 : selectedDomicilio || null,
         detallePedidos: [],
       };
-
+  
       const detalles: DetallePedidoPost[] = [];
-
+  
       productsList.forEach((product) => {
         const cantidad = productQuantities[product.id] || 1;
         const subTotal = (product.precioPromocional ?? product.precioVenta) * cantidad;
@@ -123,12 +136,15 @@ const CartMP2Promo: React.FC<CartProps> = ({ setShowDomicilio }) => {
           detalles.push(detalle);
         }
       });
+      
+      pedido.detallePedidos = detalles; 
 
-      pedido.detallePedidos = detalles;
-
-      console.log(pedido);
+      pedido.total = shippingType === "TAKE_AWAY" ? totalWithDiscount : totalPedido;
 
       const pedidoResponse = await pedidoService.post(`${API_URL}/pedido`, pedido);
+
+      console.log(pedido);
+      
 
       if (paymentMethod === "MERCADO_PAGO") {
         const preferenceResponse = await axios.post(
@@ -139,7 +155,7 @@ const CartMP2Promo: React.FC<CartProps> = ({ setShowDomicilio }) => {
       } else {
         setPreferenceId(null); 
       }
-
+  
       dispatch(resetCart());
       toast.success("El pedido se guardó correctamente.");
     } catch (error) {
@@ -173,7 +189,6 @@ const CartMP2Promo: React.FC<CartProps> = ({ setShowDomicilio }) => {
         {productsList.map((item: IArticulo | any) => {
           const quantity = productQuantities[item.id] || 0;
           const total = (item.precioPromocional ?? item.precioVenta) * quantity;
-          /* const total = item.precioVenta * quantity; */
           return (
             <div key={item.id}>
               <div className="cart-items-title cart-items-items">
@@ -191,8 +206,8 @@ const CartMP2Promo: React.FC<CartProps> = ({ setShowDomicilio }) => {
                 </div>
                 <p>${total}</p>
                 <p onClick={() => removeFromCart(item.id)} className="cross">
-    <DeleteIcon /> 
-  </p>
+                  <DeleteIcon /> 
+                </p>
               </div>
               <hr />
             </div>
@@ -208,12 +223,25 @@ const CartMP2Promo: React.FC<CartProps> = ({ setShowDomicilio }) => {
               <p>${calculateTotal()}</p>
             </div>
             <hr />
-            <hr />
+            {shippingType === "TAKE_AWAY" && (
+              <>
+                <div className="cart-total-details">
+                  <p>Descuento (10%)</p>
+                  <p>-${discount.toFixed(2)}</p>
+                </div>
+                <hr />
+              </>
+            )}
             <div className="cart-total-details">
               <b>Total</b>
-              <b>${calculateTotal()}</b>
+              <b>${shippingType === "TAKE_AWAY" ? totalWithDiscount.toFixed(2) : calculateTotal()}</b>
             </div>
           </div>
+          {shippingType === "TAKE_AWAY" && (
+            <div className="discount-message">
+              <p>¡Tienes un 10% de descuento por retirar en el local!</p>
+            </div>
+          )}
           <div className="payment-options">
             <label htmlFor="tipoEnvio">Tipo de Envío:</label>
             <select
@@ -222,7 +250,7 @@ const CartMP2Promo: React.FC<CartProps> = ({ setShowDomicilio }) => {
               onChange={(e) => {
                 setShippingType(e.target.value);
                 setSelectedDomicilio(null);
-                setPaymentMethod(""); // Resetear método de pago cuando cambia el tipo de envío
+                setPaymentMethod(""); 
               }}
             >
               <option value="">Seleccione Tipo de Envío</option>
@@ -245,7 +273,6 @@ const CartMP2Promo: React.FC<CartProps> = ({ setShowDomicilio }) => {
                     </option>
                   ))}
                 </select>
-                {/* <Button onClick={() => setShowDomicilio(true)}>Añadir un Domicilio</Button> */}
                 <Button onClick={handleAddDomicilioClick}>Añadir un Domicilio</Button>
               </div>
             )}
@@ -279,4 +306,4 @@ const CartMP2Promo: React.FC<CartProps> = ({ setShowDomicilio }) => {
   );
 };
 
-export default CartMP2Promo;
+export default CartMPPromocion;

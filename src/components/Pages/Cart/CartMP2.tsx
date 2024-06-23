@@ -86,8 +86,7 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
       let totalPedido = 0;
 
       const pedido: PedidoPost = {
-        id: 0,
-        eliminado: false,
+        total: 0,
         tipoEnvio: shippingType,
         formaPago: paymentMethod,
         clienteID: cliente?.id,
@@ -112,6 +111,7 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
       });
 
       pedido.detallePedidos = detalles;
+      pedido.total = totalPedido;
 
       console.log(pedido);
 
