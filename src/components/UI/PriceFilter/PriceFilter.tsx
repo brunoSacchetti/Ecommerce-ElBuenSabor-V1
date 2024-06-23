@@ -1,4 +1,4 @@
-// PriceFilter.tsx
+
 import React from 'react';
 import "./PriceFilter.css"
 

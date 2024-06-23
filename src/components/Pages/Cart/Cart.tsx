@@ -105,9 +105,8 @@ const Cart: React.FC<CartProps> = ({ setShowDomicilio }) => {
       pedido.detallePedidos = detalles;
       pedido.total = totalPedido;
 
-      console.log(pedido);
-
-      const pedidoResponse = await pedidoService.post(`${API_URL}/pedido`, pedido);
+      await pedidoService.post(`${API_URL}/pedido`, pedido);
+     
 
       dispatch(resetCart());
       toast.success("El pedido se guardó correctamente.");

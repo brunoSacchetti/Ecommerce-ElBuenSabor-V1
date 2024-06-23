@@ -1,4 +1,4 @@
-import IImagen from "../types/IImagen";
+
 import { AbstractBackendClient } from "./AbstractBackendClient";
 
 export abstract class BackendClient<T> extends AbstractBackendClient<T> {
@@ -69,6 +69,7 @@ export abstract class BackendClient<T> extends AbstractBackendClient<T> {
   }
 
   async post(url: string, data: T): Promise<T> {
+    console.log(url);
     const response = await fetch(`${this.baseUrl}`, {
       method: "POST",
       headers: {

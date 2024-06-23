@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+
 import { useAppSelector } from '../../../hooks/redux';
 import { TextField } from '@mui/material';
 import { assets } from '../../../assets/assets';
@@ -24,7 +24,7 @@ export const DomicilioPopup: React.FC<DomicilioProps> = ({ setShowDomicilio }) =
   });
   const cliente = useAppSelector((state) => state.user.cliente);
   const [errorMessage, setErrorMessage] = useState('');
-  const dispatch = useDispatch();
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -38,7 +38,7 @@ export const DomicilioPopup: React.FC<DomicilioProps> = ({ setShowDomicilio }) =
       let url = `http://localhost:8080/clientes/añadirDomicilioCliente/${cliente?.id}`;
       let method = 'PUT';
 
-      const response = await fetch(url, {
+      await fetch(url, {
         method: method,
         headers: {
           'Content-Type': 'application/json',

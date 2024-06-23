@@ -141,9 +141,8 @@ const CartMPPromocion: React.FC<CartProps> = ({ setShowDomicilio }) => {
 
       pedido.total = shippingType === "TAKE_AWAY" ? totalWithDiscount : totalPedido;
 
-      const pedidoResponse = await pedidoService.post(`${API_URL}/pedido`, pedido);
+      await pedidoService.post(`${API_URL}/pedido`, pedido);
 
-      console.log(pedido);
       
 
       if (paymentMethod === "MERCADO_PAGO") {

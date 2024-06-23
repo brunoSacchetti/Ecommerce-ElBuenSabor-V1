@@ -1,4 +1,4 @@
-import React, { useEffect, useState, forwardRef } from 'react';
+import { useEffect, useState, forwardRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CategoriaService } from '../../../services/CategoriaService';
 import { ICategoria } from '../../../types/Categoria';

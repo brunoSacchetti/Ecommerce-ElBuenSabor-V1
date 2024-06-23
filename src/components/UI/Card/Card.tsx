@@ -13,7 +13,7 @@ import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -47,8 +47,7 @@ const RecipeReviewCard: React.FC<RecipeReviewCardProps> = ({
   item,
   productQuantities,
   handleAddOrRemoveProduct,
-  handleIncrementQuantity,
-  handleDecrementQuantity,
+
 }) => {
   const [expanded, setExpanded] = React.useState(false);
 

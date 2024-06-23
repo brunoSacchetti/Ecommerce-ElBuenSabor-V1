@@ -1,4 +1,4 @@
-/* import Domicilio from "./Domicilio" */
+
 import { Base } from "./Base";
 import Provincia from "./Provincia"
 

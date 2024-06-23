@@ -113,9 +113,7 @@ const CartMP2: React.FC<CartProps> = ({ setShowDomicilio }) => {
       pedido.detallePedidos = detalles;
       pedido.total = totalPedido;
 
-      console.log(pedido);
-
-      const pedidoResponse = await pedidoService.post(`${API_URL}/pedido`, pedido);
+      await pedidoService.post(`${API_URL}/pedido`, pedido);
 
       if (paymentMethod === "MERCADO_PAGO") {
         const preferenceResponse = await axios.post(

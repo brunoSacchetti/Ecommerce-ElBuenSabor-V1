@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 
-import { CategoriaService } from '../../../services/CategoriaService';
 import { ICategoria } from '../../../types/Categoria';
 import IArticulo from '../../../types/IArticulo';
 import { useLocation } from 'react-router-dom';
@@ -13,18 +12,17 @@ import { useDispatch } from 'react-redux';
 
 
 import AspectRatio from '@mui/joy/AspectRatio';
-import Button from '@mui/joy/Button';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
-import IconButton from '@mui/joy/IconButton';
+
 import Typography from '@mui/joy/Typography';
-import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
+
 import PriceFilter from '../../ui/PriceFilter/PriceFilter';
 
 
 export const Articulos = () => {
-  const categoriaService = new CategoriaService(API_URL + '/categoria');
-  const [categorias, setCategorias] = useState<ICategoria[]>([]);
+
+
   const [filteredItems, setFilteredItems] = useState<IArticulo[]>([]);
 
   const [filterOption, setFilterOption] = useState<string>('default'); 
@@ -137,44 +135,6 @@ export const Articulos = () => {
     dispatch(updateProductQuantity({ id, quantity: Math.max((productQuantities[id] || 0) - 1, 0) }));
   };
 
-
-
-
-  /* return (
-    <div className="articulos-container">
-      <h1>{categoria.denominacion}</h1>
-      <PriceFilter filterOption={filterOption} setFilterOption={setFilterOption} />
-      <div className="articulos-list">
-        {filteredItems.map((item, index) => (
-          <Card key={index} className="card">
-            <div className="card-img-container">
-              <Card.Img variant="top" src={item.imagenes[0]?.url || './POLLOLOGO.png'} />
-            </div>
-            <Card.Body className="card-body">
-              <Card.Title className="card-title" style={{ color: 'rgb(241, 125, 96)' }}>
-                {item.denominacion}
-              </Card.Title>
-              <Card.Text className="card-text">
-                {item.descripcion}
-                <br />
-                <h5>Precio: $ {item.precioVenta}</h5>
-              </Card.Text>
-              <div className="quantity-control">
-                <button className="custom-btn" onClick={() => handleDecrementQuantity(item.id)}>-</button>
-                <span className="quantity">
-                  {productQuantities[item.id] || 0}
-                </span>
-                <button className="custom-btn" onClick={() => handleIncrementQuantity(item.id)}>+</button>
-              </div>
-              <button className="custom-btn" onClick={() => handleAddOrRemoveProduct(item)}>
-                {productsList.find((pdt) => pdt.id === item.id) ? 'Quitar del carrito' : 'Añadir al carrito'}
-              </button>
-            </Card.Body>
-          </Card>
-        ))}
-      </div>
-    </div>
-  ); */
   return (
     <>
     <h2 style={{display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "50px", color: "#f17d60"}}>{categoria.denominacion}</h2>
