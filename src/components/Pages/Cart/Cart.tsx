@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { removeProductFromCart, resetCart, updateProductQuantity } from "../../../redux/slices/cartSlice";
 import "./Cart.css";
 import { useAppSelector } from "../../../hooks/redux";
@@ -78,8 +78,7 @@ const Cart: React.FC<CartProps> = ({ setShowDomicilio }) => {
       let totalPedido = 0;
 
       const pedido: PedidoPost = {
-        id: 0,
-        eliminado: false,
+        total: 0,
         tipoEnvio: shippingType,
         formaPago: paymentMethod,
         clienteID: cliente?.id,
@@ -104,6 +103,7 @@ const Cart: React.FC<CartProps> = ({ setShowDomicilio }) => {
       });
 
       pedido.detallePedidos = detalles;
+      pedido.total = totalPedido;
 
       console.log(pedido);
 

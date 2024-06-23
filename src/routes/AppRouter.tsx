@@ -6,9 +6,7 @@ import { Home } from "../components/pages/Home/Home";
 import { Articulos } from "../components/pages/Articulos/Articulos";
 import { Pedidos } from "../components/pages/Pedidos/Pedidos";
 import { DomicilioPopup } from "../components/ui/DomicilioPopup/DomicilioPopup";
-import CartMP2 from "../components/pages/Cart/CartMP2";
 import Promociones from "../components/pages/Promociones/Promociones";
-import CartMPPromocion from "../components/pages/Cart/CartMPPromocion";
 import CartMP2Promo from "../components/pages/Cart/CartMP2Promo";
 
 
