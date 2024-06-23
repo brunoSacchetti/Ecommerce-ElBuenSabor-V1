@@ -6,18 +6,16 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import DiscountIcon from '@mui/icons-material/Discount';
-import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import IPromocion from '../../../types/Promocion';
 import { useEffect, useState } from 'react';
-import { PromocionService } from '../../../services/PromocionService';
+import { useAppSelector } from '../../../hooks/redux';
+import IArticulo from '../../../types/IArticulo';
+import { addProductToCart, removeProductFromCart, updateProductQuantity } from '../../../redux/slices/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -37,8 +35,10 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 const Promociones = () => {
+  const dispatch = useDispatch();
     const [expanded, setExpanded] = useState(false);
-  
+    const { productsList, productQuantities } = useAppSelector((state) => state.cart);
+
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
@@ -63,14 +63,26 @@ const Promociones = () => {
     getPromociones()
   }, [])
 
-  console.log(promociones);
-  
-  
+  const handleAddOrRemoveProduct = (product: IArticulo | any) => {
+    if (productsList.find((pdt) => pdt.id === product.id)) {
+      dispatch(removeProductFromCart(product.id));
+    } else {
+      dispatch(addProductToCart(product));
+    }
+  };
 
+  const handleIncrementQuantity = (id: number) => {
+    dispatch(updateProductQuantity({ id, quantity: (productQuantities[id] || 0) + 1 }));
+  };
 
+  const handleDecrementQuantity = (id: number) => {
+    dispatch(updateProductQuantity({ id, quantity: Math.max((productQuantities[id] || 0) - 1, 0) }));
+  };
   return (
     < div style={{display:'flex',flexWrap:'wrap',justifyContent:'space-around'}}>
+      
     {promociones.map((item:any, index:any) => (
+      
     <Card sx={{ maxWidth: 345 }} key={index} style={{background: '#f9f0e6'}} >
       <CardHeader
         action={
@@ -93,14 +105,21 @@ const Promociones = () => {
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Hasta {item.fechaHasta} a las {item.horaHasta}
-        </Typography>
- 
+        </Typography> 
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <DiscountIcon /> <Typography variant="body2" color="text.secondary"> $ {item.precioPromocional}
         </Typography>
         </IconButton>
+        <div style={{ display: 'flex', alignItems: 'center', maxHeight: '50px' }}>
+              <button className="custom-btn" onClick={() => handleDecrementQuantity(item.id)}>-</button>
+              <span className="quantity">{productQuantities[item.id] || 0}</span>
+              <button className="custom-btn" onClick={() => handleIncrementQuantity(item.id)}>+</button>
+            </div>
+        <button className="custom-btn" style={{ maxHeight: '50px' }} onClick={() => handleAddOrRemoveProduct(item)}>
+          {productsList.find((pdt) => pdt.id === item.id) ? 'Quitar del carrito' : 'Añadir al carrito'}
+        </button>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -111,7 +130,7 @@ const Promociones = () => {
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit style={{background: '#f7e6d4'}}>
-            {item.detalles.map((detalle : any, index : any) => (
+            {item.detalles.map((detalle:any, index:any) => (
               <CardContent key={index}>
                 <Typography paragraph>Detalle:</Typography>
                 <Typography variant="body2" color="text.secondary">

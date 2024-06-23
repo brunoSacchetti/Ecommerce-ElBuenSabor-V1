@@ -3,7 +3,7 @@ import IArticulo from '../../types/IArticulo';
 
 interface CartState {
   totalCount: number;
-  productsList: IArticulo[];
+  productsList: IArticulo[] | any[];
   productQuantities: { [id: number]: number };
 }
 
@@ -17,13 +17,13 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState: initialState,
   reducers: {
-    addProductToCart: (state, action: PayloadAction<IArticulo>) => {
+    addProductToCart: (state, action: PayloadAction<IArticulo | any>) => {
       const { id } = action.payload;
       if (!state.productsList.find((product) => product.id === id)) {
         state.productsList.push(action.payload);
         state.totalCount += 1;
       }
-      state.productQuantities[id] = Math.max(state.productQuantities[id] || 0, 1); // Al añadir, asegura que la cantidad mínima sea 1
+      state.productQuantities[id] = Math.max(state.productQuantities[id] || 0, 1);
     },
     removeProductFromCart: (state, action: PayloadAction<number>) => {
       const productId = action.payload;
