@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/slices/userSlice";
 import { useAppSelector } from "../../../hooks/redux";
-import { Popover, Typography } from "@mui/material";
+import { Popover } from "@mui/material";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 type NavbarProps = {
@@ -22,29 +22,19 @@ export const Navbar: React.FC<NavbarProps> = ({ setShowLogin }) => {
     dispatch(logout());
   };
 
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handlePopoverMouseEnter = () => {
-    // Mantener el popover abierto cuando el ratón entra en el popover
-    setAnchorEl(anchorEl);
-  };
-
-  const handlePopoverMouseLeave = () => {
-    // Cerrar el popover cuando el ratón sale del popover
+  const handleClose = () => {
     setAnchorEl(null);
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'mouse-over-popover' : undefined;
-  
+  const id = open ? 'simple-popover' : undefined;
+
   return (
     <div className="navbar" style={{ justifyContent: "space-around" }}>
       <Link to="/">
@@ -73,15 +63,12 @@ export const Navbar: React.FC<NavbarProps> = ({ setShowLogin }) => {
             className={menu === "Pedidos" ? "active" : ""}
           >
             <Link className="link" to={"/pedidos"}>
-              {" "}
               Pedidos
             </Link>
           </li>
-        ) : (
-          <></>
-        )}
-        <div className="carrito-navBar">
-          <li
+        ) : null}
+        <li className="carrito-navBar">
+          <div
             onClick={() => setMenu("Carrito")}
             className={`carrito ${menu === "Carrito" ? "active" : ""}`}
           >
@@ -89,8 +76,8 @@ export const Navbar: React.FC<NavbarProps> = ({ setShowLogin }) => {
               Carrito
             </Link>
             <img src={assets.basket_icon} alt="" />
-          </li>
-        </div>
+          </div>
+        </li>
       </ul>
       <div className="navbar-right">
         <div className="navbar-search-icon">
@@ -111,32 +98,27 @@ export const Navbar: React.FC<NavbarProps> = ({ setShowLogin }) => {
       <div
         style={{ gap: "0.2rem", cursor: "pointer" }}
         className="menu-hamburgesa"
-        onMouseEnter={handlePopoverOpen}
-        onMouseLeave={handlePopoverClose}
+        onClick={handleClick}
       >
         <MenuOpenIcon style={{ width: '30px', height: '30px' }} />
       </div>
       <Popover
+      style={{boxShadow:'none'}}
         id={id}
         open={open}
         anchorEl={anchorEl}
-        onClose={handlePopoverClose}
+        onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
+          vertical: 'center',
           horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: 'center',
+          horizontal: 'right',
         }}
-        sx={{
-          pointerEvents: 'auto', // Asegurarse de que los eventos del ratón se manejen correctamente
-        }}
-        disableRestoreFocus
-        onMouseEnter={handlePopoverMouseEnter}
-        onMouseLeave={handlePopoverMouseLeave}
+        PaperProps={{ style: { boxShadow: 'none' } }}
       >
-        <Typography sx={{ p: 0.5 }}>
+        <div style={{padding:'4px',background:'#F9F0E6'}}>
           <ul style={{ listStyleType: 'none', padding: '0' }}>
             <li
               onClick={() => setMenu("Home")}
@@ -154,21 +136,18 @@ export const Navbar: React.FC<NavbarProps> = ({ setShowLogin }) => {
                 Promociones
               </Link>
             </li>
-            {isLoggedIn && cliente ? (
+            {isLoggedIn && cliente && (
               <li
                 onClick={() => setMenu("Pedidos")}
                 className={menu === "Pedidos" ? "active" : ""}
               >
                 <Link className="link" to={"/pedidos"}>
-                  {" "}
                   Pedidos
                 </Link>
               </li>
-            ) : (
-              <></>
             )}
-            <div className="carrito-navBar">
-              <li
+            <li className="carrito-navBar">
+              <div
                 onClick={() => setMenu("Carrito")}
                 className={`carrito ${menu === "Carrito" ? "active" : ""}`}
               >
@@ -176,20 +155,33 @@ export const Navbar: React.FC<NavbarProps> = ({ setShowLogin }) => {
                   Carrito
                 </Link>
                 <img src={assets.basket_icon} alt="" />
-              </li>
+              </div>
+              {isLoggedIn && cliente ? (
+              <div style={{display:'flex'}}>
+                {cliente.userName} 
+                <img className="imgCliente" src={cliente.imagenCliente.url}  alt="clienteImg" />
+              </div>
+              ) : (
+              <></>
+              )}
               <div className="buttonPopover">
                 {isLoggedIn && cliente ? (
                   <>
-                    <span className="userName">{cliente.userName}</span>
+                  <span className="userName" style={{ color: 'tomato' }}>
+        {cliente.userName}
+      </span>
                     <button onClick={handleLogout}>Cerrar Sesión</button>
                   </>
                 ) : (
                   <button onClick={() => setShowLogin(true)}>Iniciar Sesión</button>
                 )}
               </div>
-            </div>
+            </li>
+            <li>
+  
+            </li>
           </ul>
-        </Typography>
+        </div>
       </Popover>
     </div>
   );

@@ -125,6 +125,16 @@ margin-top: 10px;
         cursor: pointer;
         transition: 0.4s;
     }
+    .navbar{
+height: 200px;
+    }
+    .imgCliente{
+        border-radius: 25px;
+        align-self: flex-end;
+        margin-bottom: 5px;
+        
+    }
+    
     
 }
 

@@ -17,4 +17,13 @@
     border-radius: 4px;
     border: 1px solid #ccc;
   }
+  @media (max-width: 550px) {
   
+    .price-filter-container {
+
+      margin-right: 0px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+    
+  }

@@ -1,7 +1,5 @@
 import "./Header.css";
 
-
-
 interface HeaderProps {
   onButtonClick: () => void;
 }

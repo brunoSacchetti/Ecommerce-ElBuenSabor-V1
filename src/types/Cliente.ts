@@ -9,7 +9,10 @@ export interface ICliente extends Base<ICliente> {
     email: string;
     userName: string;
     fechaNacimiento: string;
-    imagenCliente: string;
+    imagenCliente: {
+        name:string;
+        url:string;
+    };
     domicilios: IDomicilio[];
     /* pedido: IPedido[]; */
 }

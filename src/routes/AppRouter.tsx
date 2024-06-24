@@ -8,7 +8,7 @@ import { Pedidos } from "../components/Screens/Pedidos/Pedidos";
 import { DomicilioPopup } from "../components/userInterface/DomicilioPopup/DomicilioPopup";
 import Promociones from "../components/Screens/Promociones/Promociones";
 import CartMP2Promo from "../components/Screens/Cart/CartMP2Promo";
-import { NavbarPrueba } from "../components/userInterface/Navbar/NavbarPrueba";
+import { Navbar } from "../components/userInterface/Navbar/Navbar";
 
 export const AppRouter = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -22,7 +22,7 @@ export const AppRouter = () => {
         <></>
       )}
       <div className="app">
-        <NavbarPrueba setShowLogin={setShowLogin} />
+        <Navbar setShowLogin={setShowLogin} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/articulos" element={<Articulos />} />
