@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { login } from '../../../redux/slices/userSlice';
 import { assets } from '../../../assets/assets';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 type LoginProps = {
   setShowLogin: (value: any) => void;
 };
@@ -39,9 +41,9 @@ export const LoginPopup: React.FC<LoginProps> = ({ setShowLogin }) => {
       let method = 'POST';
 
       if (currState === 'Sign Up') {
-        url = 'http://localhost:8080/clientes/register-cliente';
+        url = API_URL + "/clientes/register-cliente";
       } else {
-        url = 'http://localhost:8080/clientes/login';
+        url = API_URL + "/clientes/login";
         method = 'POST'; // Puedes ajustar según la implementación en el backend
       }
 
@@ -52,7 +54,6 @@ export const LoginPopup: React.FC<LoginProps> = ({ setShowLogin }) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        mode: 'no-cors',
         body: JSON.stringify(formData)
       });
 

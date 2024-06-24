@@ -35,7 +35,7 @@ export const DomicilioPopup: React.FC<DomicilioProps> = ({ setShowDomicilio }) =
     e.preventDefault();
 
     try {
-      let url = `http://localhost:8080/clientes/añadirDomicilioCliente/${cliente?.id}`;
+      let url = `${API_URL}/clientes/añadirDomicilioCliente/${cliente?.id}`;
       let method = 'PUT';
 
       await fetch(url, {
