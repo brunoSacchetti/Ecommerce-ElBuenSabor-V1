@@ -28,7 +28,7 @@
 
 
 .headers-content p {
-  font-size: min(max(1vw, 13px), 1.2vw); /* Tamaño de fuente adaptable */
+  font-size: min(max(1.5vw, 13px), 1.2vw); /* Tamaño de fuente adaptable */
   font-weight: 300; /* Peso de la fuente */
   line-height: 1.5; /* Altura de línea */
 }
@@ -51,4 +51,28 @@
   background-color: #e0e0e0; /* Color de fondo al pasar el ratón */
 }
 
+@media (max-width: 550px) {
+  .headers-content {
+    bottom: 5%; 
+    width: 90%; 
+
+  }
+  .header {
+    margin: 10px auto; /* Margen automático para centrar horizontalmente */
+    width: 85%;
+  }
+  .headers-content button {
+    padding: 6px 14px; /* Relleno del botón */
+    border: none; /* Sin borde */
+    border-radius: 50px; /* Borde redondeado */
+    cursor: pointer; /* Cursor apuntador */
+    transition: background-color 0.3s ease; /* Transición suave */
+  }
+  .headers-content p {
+    font-size: min(max(1.5vw, 13px), 1.5vw); /* Tamaño de fuente adaptable */
+    font-weight: 300; /* Peso de la fuente */
+    line-height: 1.5; /* Altura de línea */
+    margin-bottom: 0;
+  }
+}
 

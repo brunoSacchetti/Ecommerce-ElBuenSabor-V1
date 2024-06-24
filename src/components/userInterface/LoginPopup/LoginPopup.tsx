@@ -23,7 +23,7 @@ export const LoginPopup: React.FC<LoginProps> = ({ setShowLogin }) => {
     password: ''
   });
 
-  const [currState, setCurrState] = useState("Sign Up");
+  const [currState, setCurrState] = useState("Login");
   const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ export const LoginPopup: React.FC<LoginProps> = ({ setShowLogin }) => {
         url = API_URL + "/clientes/register-cliente";
       } else {
         url = API_URL + "/clientes/login";
-        method = 'POST'; // Puedes ajustar según la implementación en el backend
+        method = 'POST'; 
       }
 
 
