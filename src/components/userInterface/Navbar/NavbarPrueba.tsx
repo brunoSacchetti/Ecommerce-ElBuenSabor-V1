@@ -103,6 +103,7 @@ export const NavbarPrueba: React.FC<NavbarProps> = ({ setShowLogin }) => {
         <MenuOpenIcon style={{ width: '30px', height: '30px' }} />
       </div>
       <Popover
+      style={{boxShadow:'none'}}
         id={id}
         open={open}
         anchorEl={anchorEl}
@@ -115,8 +116,9 @@ export const NavbarPrueba: React.FC<NavbarProps> = ({ setShowLogin }) => {
           vertical: 'center',
           horizontal: 'right',
         }}
+        PaperProps={{ style: { boxShadow: 'none' } }}
       >
-        <div style={{padding:'4px'}}>
+        <div style={{padding:'4px',background:'#F9F0E6'}}>
           <ul style={{ listStyleType: 'none', padding: '0' }}>
             <li
               onClick={() => setMenu("Home")}
