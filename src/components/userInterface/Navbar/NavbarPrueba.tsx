@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/slices/userSlice";
 import { useAppSelector } from "../../../hooks/redux";
-import { Popover, Typography } from "@mui/material";
+import { Popover } from "@mui/material";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 type NavbarProps = {
