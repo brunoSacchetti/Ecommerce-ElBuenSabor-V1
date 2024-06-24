@@ -52,6 +52,7 @@ export const LoginPopup: React.FC<LoginProps> = ({ setShowLogin }) => {
         headers: {
           'Content-Type': 'application/json'
         },
+        mode: 'no-cors',
         body: JSON.stringify(formData)
       });
 
