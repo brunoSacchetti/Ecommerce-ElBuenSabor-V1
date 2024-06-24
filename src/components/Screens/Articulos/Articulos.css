@@ -1,6 +1,6 @@
 .articulos-container {
   padding: 20px;
-  background-color: #f8f9fa; /* Fondo claro para el contenedor */
+  background-color: #dfc1a2; /* Fondo claro para el contenedor */
 }
 
 .articulos-container h1 {
@@ -129,6 +129,8 @@
   color: #f17d60;
   border: 1px solid #f17d60;
 }
+
+
 
 @media (max-width: 768px) {
   .articulos-list {

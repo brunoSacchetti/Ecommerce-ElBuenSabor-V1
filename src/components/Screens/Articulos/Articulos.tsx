@@ -9,7 +9,7 @@ import { ImagenService } from '../../../services/ImagenService';
 import { useAppSelector } from '../../../hooks/redux';
 import { addProductToCart, removeProductFromCart, updateProductQuantity } from '../../../redux/slices/cartSlice';
 import { useDispatch } from 'react-redux';
-
+import InfoIcon from '@mui/icons-material/Info';
 
 import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
@@ -141,7 +141,7 @@ export const Articulos = () => {
     <PriceFilter filterOption={filterOption} setFilterOption={setFilterOption} />
     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
       {filteredItems.map((item, index) => (
-        <Card key={index} sx={{ width: 320, marginBottom: '20px' }}>
+        <Card key={index} sx={{ width: 320, marginBottom: '20px',background:'#f3dbc0' }}>
           <AspectRatio minHeight="120px" maxHeight="200px" style={{ overflow: 'hidden' }}>
             <div
               style={{
@@ -159,10 +159,15 @@ export const Articulos = () => {
           <div style={{display: "block", justifyContent: "center"}}>
             <Typography level="body-sm" >Precio:</Typography>
             <Typography fontSize="lg" fontWeight="lg">
-              $ {item.precioVenta}
+             <div style={{display:'flex',justifyContent:'space-between',padding:'10px'}}>
+              $ {item.precioVenta} <button className="custom-btn"><InfoIcon/></button>
+              </div>
             </Typography>
+
           </div>
+         
           <CardContent orientation="horizontal">
+          
             <div style={{ display: 'flex', alignItems: 'center', maxHeight: '50px' }}>
               <button className="custom-btn" onClick={() => handleDecrementQuantity(item.id)}>-</button>
               <span className="quantity">{productQuantities[item.id] || 0}</span>
