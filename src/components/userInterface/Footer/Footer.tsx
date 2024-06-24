@@ -6,7 +6,7 @@ export const Footer = () => {
     <div className="footer" id="footer">
       <div className="footer-content">
         <div className="footer-content-left">
-          <img src="./POLLOLOGO.png" alt="" style={{height:'200px',width:'200px'}} />
+          <img src="./POLLOLOGO.png" alt="" className="imgFooter"  />
           <p>
           En BuenSabor, nos dedicamos a ofrecerte las mejores comidas con ingredientes frescos y de alta calidad. Disfruta de una experiencia culinaria única y deléitate con nuestros sabores excepcionales.
           </p>

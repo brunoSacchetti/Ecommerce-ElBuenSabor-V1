@@ -102,7 +102,8 @@ export const Pedidos: React.FC = () => {
                     <Button
                       variant="contained"
                       color="error"
-                      style={{ alignContent: "center" }}
+                      style={{ alignContent: "center",margin:'0',padding:'0' }}
+                     
                       onClick={() => handleDescargarFactura(pedido.id)}
                     >
                       <span className="material-symbols-outlined">
