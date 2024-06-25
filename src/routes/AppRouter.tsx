@@ -9,6 +9,7 @@ import { DomicilioPopup } from "../components/userInterface/DomicilioPopup/Domic
 import Promociones from "../components/Screens/Promociones/Promociones";
 import CartMP2Promo from "../components/Screens/Cart/CartMP2Promo";
 import { Navbar } from "../components/userInterface/Navbar/Navbar";
+import { Footer } from "../components/userInterface/Footer/Footer";
 
 export const AppRouter = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -33,6 +34,7 @@ export const AppRouter = () => {
           <Route path="/pedidos" element={<Pedidos />} />
           <Route path="/promociones" element={<Promociones />} />
         </Routes>
+        <Footer/>
       </div>
     </>
   );
