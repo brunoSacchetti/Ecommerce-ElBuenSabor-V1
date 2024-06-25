@@ -9,35 +9,25 @@ import { useAppSelector } from '../../../hooks/redux';
 import { addProductToCart, removeProductFromCart, updateProductQuantity } from '../../../redux/slices/cartSlice';
 import { useDispatch } from 'react-redux';
 import InfoIcon from '@mui/icons-material/Info';
-
 import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
-
 import Typography from '@mui/joy/Typography';
-
 import PriceFilter from '../../userInterface/PriceFilter/PriceFilter';
-
 import { ModalArticulo } from '../../userInterface/Modal/ModalArticulo';
+import { TextField } from '@mui/material';
 
 export const Articulos = () => {
-
-  const [filteredItems, setFilteredItems] = useState<IArticulo[]>([]);
+  const [items, setItems] = useState<any[]>([]);
+  const [filteredItems, setFilteredItems] = useState<any[]>([]);
   const [filterOption, setFilterOption] = useState<string>('default');
   const [modalState, setModalState] = useState<{ visible: boolean; item: IArticulo | null }>({ visible: false, item: null });
-
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const location = useLocation();
   const { categoria } = location.state as { categoria: ICategoria };
-
-  const imageServiceManufacturado = new ImagenService(
-    `${API_URL}/ArticuloManufacturado`
-  );
-
+  const imageServiceManufacturado = new ImagenService(`${API_URL}/ArticuloManufacturado`);
   const imageServiceInsumo = new ImagenService(`${API_URL}/ArticuloInsumo`);
-
   const dispatch = useDispatch();
-
-  console.log(categoria);
 
   const filterInsumos = (categoria: ICategoria) => {
     const insumosNoElaborar = categoria.insumos
@@ -84,34 +74,43 @@ export const Articulos = () => {
     }
   };
 
-  //Filtrar 
   const fetchAndFilterData = async () => {
     const insumos = filterInsumos(categoria);
     const manufacturados = filterArticulosManufacturados(categoria);
-    let items = [...insumos, ...manufacturados];
-    
+    const allItems = [...insumos, ...manufacturados];
+
     const itemsWithImages = await Promise.all(
-      items.map(async (item) => {
+      allItems.map(async (item) => {
         const images = await fetchImages(item);
         return { ...item, imagenes: images };
       })
     );
 
-    // Ordenar los artículos según la opción de filtrado seleccionada
     if (filterOption === 'priceAsc') {
       itemsWithImages.sort((a, b) => a.precioVenta - b.precioVenta);
     } else if (filterOption === 'priceDesc') {
       itemsWithImages.sort((a, b) => b.precioVenta - a.precioVenta);
     }
 
+    setItems(itemsWithImages);
     setFilteredItems(itemsWithImages);
   };
 
   useEffect(() => {
     fetchAndFilterData();
-  }, [categoria, filterOption]);
+  }, [filterOption]);
 
-  // Carrito
+  useEffect(() => {
+    if (searchTerm.trim() === '') {
+      setFilteredItems(items);
+    } else {
+      const filtered = items.filter(item =>
+        item.denominacion.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredItems(filtered);
+    }
+  }, [items, searchTerm]);
+
   const { productsList } = useAppSelector((state) => state.cart);
   const { productQuantities } = useAppSelector((state) => state.cart);
 
@@ -138,10 +137,20 @@ export const Articulos = () => {
   return (
     <>
       <h2 style={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "50px", color: "#f17d60" }}>{categoria.denominacion}</h2>
-      <PriceFilter filterOption={filterOption} setFilterOption={setFilterOption} />
+      <div style={{display:'flex', justifyContent: "space-around", alignItems: "center", marginBottom:'40px'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20, width: "30%" }}>
+          <TextField
+            label="Buscar artículo"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ width: "100%" }}
+          />
+        </div>
+        <PriceFilter filterOption={filterOption} setFilterOption={setFilterOption} />
+      </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
         {filteredItems.map((item, index) => (
-          <Card key={index} sx={{ width: 320, marginBottom: '20px', background: '#f3c99a',border:'#fbbe7a 1px solid' }}>
+          <Card key={index} sx={{ width: 320, marginBottom: '20px', background: '#f3c99a', border: '#fbbe7a 1px solid' }}>
             <AspectRatio minHeight="120px" maxHeight="200px" style={{ overflow: 'hidden' }}>
               <div
                 style={{
@@ -165,7 +174,7 @@ export const Articulos = () => {
               </Typography>
             </div>
             <CardContent orientation="horizontal">
-              <div style={{ display: 'flex', alignItems: 'center', maxHeight: '50px',zIndex:'0'}}>
+              <div style={{ display: 'flex', alignItems: 'center', maxHeight: '50px', zIndex:'0'}}>
                 <button className="custom-btn" onClick={() => handleDecrementQuantity(item.id)}>-</button>
                 <span className="quantity">{productQuantities[item.id] || 0}</span>
                 <button className="custom-btn" onClick={() => handleIncrementQuantity(item.id)}>+</button>
@@ -177,7 +186,7 @@ export const Articulos = () => {
           </Card>
         ))}
       </div>
-      <ModalArticulo visible={modalState.visible} setVisible={(visible:any) => setModalState({ ...modalState, visible })} item={modalState.item} /> {/* Pass the item to the modal */}
+      <ModalArticulo visible={modalState.visible} setVisible={(visible:any) => setModalState({ ...modalState, visible })} item={modalState.item} />
     </>
   );
 };
