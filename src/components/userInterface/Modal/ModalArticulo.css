@@ -1,0 +1,23 @@
+.custom-modal-title{
+  background-color: #F3C99A;
+}
+.custom-modal-body{
+  background-color: #F5D4AF;
+}
+.modal-footer{
+  border:none;
+  display: flex;
+
+  align-items: center;
+  width: 100%;
+}
+.modal-header{
+  border:none;
+}
+
+.custom-modal-price{
+justify-content: center !important;
+background-color: #F3C99A !important;
+
+
+}

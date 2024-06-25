@@ -6,16 +6,23 @@
     gap: 10px;
     justify-content: end;
     margin-right: 150px;
+    
   }
   
   .price-filter-container label {
-    font-weight: bold;
+    font-weight: 500;
   }
   
   .price-filter-container select {
     padding: 5px;
     border-radius: 4px;
     border: 1px solid #ccc;
+    background: #efb472;
+    
+    border-radius: 7px;
+  }
+  .price-filter-container option {
+   background-color: #F3C99A;
   }
   @media (max-width: 550px) {
   

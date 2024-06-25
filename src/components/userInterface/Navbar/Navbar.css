@@ -3,14 +3,16 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background: #f9f0e6;
+    background-color:  #f5d4af;
 }
 
 .navbar .logo{
     width: 150px;
     height: 150px;
 }
-
+.pUserName{
+    margin-bottom: 0;
+}
 .navbar-menu{
     display: flex;
     list-style: none;

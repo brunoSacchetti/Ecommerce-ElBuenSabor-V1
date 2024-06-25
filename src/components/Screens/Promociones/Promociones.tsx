@@ -16,7 +16,7 @@ import { useAppSelector } from '../../../hooks/redux';
 import IArticulo from '../../../types/IArticulo';
 import { addProductToCart, removeProductFromCart, updateProductQuantity } from '../../../redux/slices/cartSlice';
 import { useDispatch } from 'react-redux';
-
+import "./Promociones.css"
 const API_URL = import.meta.env.VITE_API_URL
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -83,7 +83,7 @@ const Promociones = () => {
       
     {promociones.map((item:any, index:any) => (
       
-    <Card sx={{ maxWidth: 345 }} key={index} style={{background: '#f9f0e6'}} >
+    <Card sx={{ maxWidth: 345 }} key={index} style={{background: '#F3C99A'}} >
       <CardHeader
         action={
           <IconButton aria-label="settings">
@@ -105,13 +105,15 @@ const Promociones = () => {
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Hasta {item.fechaHasta} a las {item.horaHasta}
-        </Typography> 
+        </Typography>
+         
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+      <IconButton aria-label="add to favorites">
           <DiscountIcon /> <Typography variant="body2" color="text.secondary"> $ {item.precioPromocional}
         </Typography>
         </IconButton>
+      <CardActions disableSpacing>
+        
         <div style={{ display: 'flex', alignItems: 'center', maxHeight: '50px' }}>
               <button className="custom-btn" onClick={() => handleDecrementQuantity(item.id)}>-</button>
               <span className="quantity">{productQuantities[item.id] || 0}</span>
@@ -129,7 +131,7 @@ const Promociones = () => {
           <ExpandMoreIcon />
         </ExpandMore>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit style={{background: '#f7e6d4'}}>
+      <Collapse in={expanded} timeout="auto" unmountOnExit style={{background: '#F5D4AF'}}>
             {item.detalles.map((detalle:any, index:any) => (
               <CardContent key={index}>
                 <Typography paragraph>Detalle:</Typography>

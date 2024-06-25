@@ -118,7 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({ setShowLogin }) => {
         }}
         PaperProps={{ style: { boxShadow: 'none' } }}
       >
-        <div style={{padding:'4px',background:'#F9F0E6'}}>
+        <div style={{padding:'4px',background:'#f5d4af'}}>
           <ul style={{ listStyleType: 'none', padding: '0' }}>
             <li
               onClick={() => setMenu("Home")}
@@ -158,7 +158,7 @@ export const Navbar: React.FC<NavbarProps> = ({ setShowLogin }) => {
               </div>
               {isLoggedIn && cliente ? (
               <div style={{display:'flex'}}>
-                {cliente.userName} 
+                <p className="pUserName">{cliente.userName}</p>
                 <img className="imgCliente" src={cliente.imagenCliente.url}  alt="clienteImg" />
               </div>
               ) : (
