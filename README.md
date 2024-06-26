@@ -13,10 +13,18 @@ npm install react-google-login
 
 npm install gapi-script
 
+----
 
+Tarjeta prueba mp:
 
+5031 7557 3453 0604
 
---
+123 cvv
+
+11/25
+
+----
+
 Usuario con mail valido
 
 user: pruebaUser
