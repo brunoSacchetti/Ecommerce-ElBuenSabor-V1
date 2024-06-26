@@ -9,7 +9,6 @@ import { PedidoPost } from "../../../types/PedidoPost/PedidoPost";
 import { DetallePedidoPost } from "../../../types/PedidoPost/DetallePedidoPost";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
 import { Wallet, initMercadoPago } from "@mercadopago/sdk-react";
 import { Button } from "react-bootstrap";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -146,15 +145,25 @@ const CartMPPromocion: React.FC<CartProps> = ({ setShowDomicilio }) => {
       
 
       if (paymentMethod === "MERCADO_PAGO") {
-        const preferenceResponse = await axios.post(
-          `${API_URL}/pagoMercadoPago`,
-          { ...pedido, total: totalPedido }
-        );
-        setPreferenceId(preferenceResponse.data.id);
+        try {
+          const response = await fetch(`${API_URL}/pagoMercadoPago`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ ...pedido, total: totalPedido }),
+          });
+          
+          const preferenceResponse = await response.json();
+          setPreferenceId(preferenceResponse.id);
+        } catch (error) {
+          console.error('Error:', error);
+          // Manejar el error según sea necesario
+        }
       } else {
-        setPreferenceId(null); 
+        setPreferenceId(null);
       }
-  
+      
       dispatch(resetCart());
       toast.success("El pedido se guardó correctamente.");
     } catch (error) {
