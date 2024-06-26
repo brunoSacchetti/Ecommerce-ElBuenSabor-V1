@@ -68,7 +68,13 @@ export const Pedidos: React.FC = () => {
         variant="h4"
         component="div"
         gutterBottom
-        style={{ marginBottom: "20px", justifyContent: "center", alignItems: "center", display: "flex", color: "#e08548"}}
+        style={{
+          marginBottom: "20px",
+          justifyContent: "center",
+          alignItems: "center",
+          display: "flex",
+          color: "#e08548",
+        }}
       >
         Historial de Pedidos
       </Typography>
@@ -98,12 +104,17 @@ export const Pedidos: React.FC = () => {
                 <TableCell>{pedido.fechaPedido}</TableCell>
                 <TableCell>{pedido.horaEstimadaFinalizacion}</TableCell>
                 <TableCell>
-                  {pedido.estado === "FACTURADO" && (
+                  {(pedido.estado === "FACTURADO" ||
+                    pedido.estado === "ENTREGADO" ||
+                    pedido.estado === "DELIVERY") && (
                     <Button
                       variant="contained"
                       color="error"
-                      style={{ alignContent: "center",margin:'0',padding:'0' }}
-                     
+                      style={{
+                        alignContent: "center",
+                        margin: "0",
+                        padding: "0",
+                      }}
                       onClick={() => handleDescargarFactura(pedido.id)}
                     >
                       <span className="material-symbols-outlined">
