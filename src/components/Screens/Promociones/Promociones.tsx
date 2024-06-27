@@ -61,6 +61,23 @@ const Promociones = () => {
     }
   };
 
+  /* //TRAEMOS SOLO LAS PROMOCIONES HABILITADAS
+  const getPromociones = async () => {
+    try {
+      const response = await fetch(`${API_URL}/promocion`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok " + response.statusText);
+      }
+      const data = await response.json();
+      const habilitadas = data.filter((promocion : any) => promocion.habilitado); // Filtrar promociones habilitadas
+      setPromociones(habilitadas);
+      setFilteredPromociones(habilitadas); // Set initial filtered list to all enabled promotions
+    } catch (error) {
+      console.error("Error al obtener las promociones:", error);
+    }
+  }; */
+  
+
   useEffect(() => {
     getPromociones();
   }, []);
