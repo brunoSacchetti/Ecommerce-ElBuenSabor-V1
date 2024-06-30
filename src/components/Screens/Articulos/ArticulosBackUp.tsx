@@ -31,7 +31,7 @@ export const Articulos = () => {
 
   const filterInsumos = (categoria: ICategoria) => {
     const insumosNoElaborar = categoria.insumos
-      .filter((insumo: any) => !insumo.esParaElaborar && insumo.habilitado)  // Filtrar solo habilitados
+      .filter((insumo: any) => !insumo.esParaElaborar)
       .map((insumo: any) => ({
         id: insumo.id,
         denominacion: insumo.denominacion,
@@ -44,16 +44,16 @@ export const Articulos = () => {
   };
 
   const filterArticulosManufacturados = (categoria: ICategoria) => {
-    const articulosManufacturados = categoria.articulosManufacturados
-      .filter((articulo: any) => articulo.habilitado)  // Filtrar solo habilitados
-      .map((articulo: any) => ({
+    const articulosManufacturados = categoria.articulosManufacturados.map(
+      (articulo: any) => ({
         id: articulo.id,
         denominacion: articulo.denominacion,
         descripcion: articulo.descripcion,
         precioVenta: articulo.precioVenta,
         tipo: 'manufacturado',
         imagenes: [],
-      }));
+      })
+    );
     return articulosManufacturados;
   };
 
@@ -86,16 +86,14 @@ export const Articulos = () => {
       })
     );
 
-    let filteredItemsWithImages = itemsWithImages;
-
     if (filterOption === 'priceAsc') {
-      filteredItemsWithImages.sort((a, b) => a.precioVenta - b.precioVenta);
+      itemsWithImages.sort((a, b) => a.precioVenta - b.precioVenta);
     } else if (filterOption === 'priceDesc') {
-      filteredItemsWithImages.sort((a, b) => b.precioVenta - a.precioVenta);
+      itemsWithImages.sort((a, b) => b.precioVenta - a.precioVenta);
     }
 
-    setItems(filteredItemsWithImages);
-    setFilteredItems(filteredItemsWithImages);
+    setItems(itemsWithImages);
+    setFilteredItems(itemsWithImages);
   };
 
   useEffect(() => {

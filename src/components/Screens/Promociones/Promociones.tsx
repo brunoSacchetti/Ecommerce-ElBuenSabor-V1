@@ -47,7 +47,7 @@ const Promociones = () => {
     setExpanded(!expanded);
   };
 
-  const getPromociones = async () => {
+  /* const getPromociones = async () => {
     try {
       const response = await fetch(`${API_URL}/promocion`);
       if (!response.ok) {
@@ -59,9 +59,9 @@ const Promociones = () => {
     } catch (error) {
       console.error("Error al obtener las promociones:", error);
     }
-  };
+  }; */
 
-  /* //TRAEMOS SOLO LAS PROMOCIONES HABILITADAS
+  //TRAEMOS SOLO LAS PROMOCIONES HABILITADAS
   const getPromociones = async () => {
     try {
       const response = await fetch(`${API_URL}/promocion`);
@@ -75,7 +75,7 @@ const Promociones = () => {
     } catch (error) {
       console.error("Error al obtener las promociones:", error);
     }
-  }; */
+  };
   
 
   useEffect(() => {
