@@ -19,12 +19,24 @@ export const Categories = forwardRef<HTMLDivElement>((_, ref) => {
     getCategorias();
   }, []);
 
-  const getCategorias = async () => {
+  /* const getCategorias = async () => {
     try {
       const data = await categoriaService.getAll();
       const filteredCategorias = data.filter((cat: ICategoria) => !cat.esInsumo);
       setCategorias(filteredCategorias);
       preloadImages(filteredCategorias);
+    } catch (error) {
+      console.error("Error al obtener las categorías:", error);
+    }
+  }; */
+
+  const getCategorias = async () => {
+    try {
+      const data = await categoriaService.getAll();
+      const filteredCategorias = data.filter((cat: ICategoria) => !cat.eliminado);
+      setCategorias(filteredCategorias);
+      preloadImages(filteredCategorias); // Suponiendo que preloadImages acepta un arreglo de categorías
+  
     } catch (error) {
       console.error("Error al obtener las categorías:", error);
     }

@@ -141,10 +141,15 @@ const CartMPPromocion: React.FC<CartProps> = ({ setShowDomicilio }) => {
 
       pedido.total = shippingType === "TAKE_AWAY" ? totalWithDiscount : totalPedido;
 
-      await pedidoService.post(`${API_URL}/pedido`, pedido);
+      //pedido
+      const response : any = await pedidoService.post(`${API_URL}/pedido`, pedido);
 
+      //pedido
+      if (response.status == 500){
+        toast.error("Uno o más artículos no tienen stock suficiente. Por favor, revise su carrito y vuelva a intentar.");
+        return;  
+      }
       
-
       if (paymentMethod === "MERCADO_PAGO") {
         try {
           const response = await fetch(`${API_URL}/pagoMercadoPago`, {
